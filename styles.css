@@ -25,25 +25,41 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  /* Navigation - Default (Desktop) */
+  /* Navigation - Default styling */
   .nav-list {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
     list-style: none;
+    overflow-x: auto;
   }
   
-  /* Navigation - Mobile (for screens <= 480px) */
+  .nav-list li {
+    margin: 0 10px;
+  }
+  
+  .nav-list li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  
+  /* Mobile Navigation: wrap into two rows */
   @media (max-width: 480px) {
     .nav-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      justify-items: center;
+      flex-wrap: wrap;
+      overflow-x: visible;
+      justify-content: center;
+    }
+    .nav-list li {
+      flex: 0 0 33.33%;
+      text-align: center;
+      margin: 5px 0;
     }
     .nav-list li a {
       font-size: 14px;
-      padding: 5px;
     }
   }
   
@@ -186,32 +202,28 @@
     font-size: 1.1em;
   }
   
-  /* Call Group: ensure call button and phone number are stacked */
-  .call-group {
-    margin-bottom: 10px;
-  }
-  
+  /* Call Button and Phone Number Styling */
   .call-button {
-    display: block;
+    display: inline-block;
     background-color: #004c99;
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
     text-decoration: none;
-    margin: 5px auto;
+    margin: 5px;
     transition: background-color 0.3s ease;
-    max-width: 200px;
-    text-align: center;
   }
   
   .call-button:hover {
     background-color: #003366;
   }
   
+  /* Phone number now displays as a block below the button */
   .phone-number {
     display: block;
+    text-align: center;
     font-size: 1em;
-    margin: 5px auto 0;
+    margin-top: 5px;
     color: #004c99;
   }
   

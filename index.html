@@ -233,15 +233,11 @@
         resultEl.classList.add("result-success");
         resultEl.innerHTML = `
           Yes, we service your area!<br><br>
-          <div class="call-group">
-            <a href="tel:570-217-7290" class="call-button">Call Steve</a><br>
-            <span class="phone-number">(570-217-7290)</span>
-          </div>
+          <a href="tel:570-217-7290" class="call-button">Call Steve</a>
+          <div class="phone-number">(570-217-7290)</div>
           <br>
-          <div class="call-group">
-            <a href="tel:570-452-6429" class="call-button">Call Clayton</a><br>
-            <span class="phone-number">(570-452-6429)</span>
-          </div>
+          <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
+          <div class="phone-number">(570-452-6429)</div>
         `;
       } else {
         resultEl.classList.add("result-error");
@@ -272,11 +268,11 @@
       rootMargin: "0px 0px -50px 0px"
     };
     
-    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('appear');
-        appearOnScroll.unobserve(entry.target);
+        observer.unobserve(entry.target);
       });
     }, appearOptions);
     
