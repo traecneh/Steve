@@ -233,10 +233,15 @@
         resultEl.classList.add("result-success");
         resultEl.innerHTML = `
           Yes, we service your area!<br><br>
-          <a href="tel:570-217-7290" class="call-button">Call Steve</a>
-          <span class="phone-number">(570-217-7290)</span><br><br>
-          <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
-          <span class="phone-number">(570-452-6429)</span>
+          <div class="call-group">
+            <a href="tel:570-217-7290" class="call-button">Call Steve</a><br>
+            <span class="phone-number">(570-217-7290)</span>
+          </div>
+          <br>
+          <div class="call-group">
+            <a href="tel:570-452-6429" class="call-button">Call Clayton</a><br>
+            <span class="phone-number">(570-452-6429)</span>
+          </div>
         `;
       } else {
         resultEl.classList.add("result-error");

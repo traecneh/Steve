@@ -25,10 +25,10 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  /* Navigation - Keep links in one line on mobile */
+  /* Navigation */
   .nav-list {
     display: flex;
-    flex-wrap: nowrap; /* prevent wrapping */
+    flex-wrap: nowrap;
     justify-content: center;
     list-style: none;
     overflow-x: auto;
@@ -46,8 +46,15 @@
     white-space: nowrap;
   }
   
-  .nav-list li a:hover {
-    color: #ffcc00;
+  /* Media Query for smaller mobile screens */
+  @media (max-width: 480px) {
+    .nav-list li a {
+      font-size: 12px;
+      padding: 5px;
+    }
+    .nav-list li {
+      margin: 0 5px;
+    }
   }
   
   /* Container */
@@ -189,15 +196,22 @@
     font-size: 1.1em;
   }
   
+  /* Call Group: ensure call button and phone number are stacked */
+  .call-group {
+    margin-bottom: 10px;
+  }
+  
   .call-button {
-    display: inline-block;
+    display: block;
     background-color: #004c99;
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
     text-decoration: none;
-    margin: 5px;
+    margin: 5px auto;
     transition: background-color 0.3s ease;
+    max-width: 200px;
+    text-align: center;
   }
   
   .call-button:hover {
@@ -205,8 +219,9 @@
   }
   
   .phone-number {
+    display: block;
     font-size: 1em;
-    margin-left: 10px;
+    margin: 5px auto 0;
     color: #004c99;
   }
   
@@ -251,9 +266,6 @@
     }
     .nav-list li {
       margin: 0 5px;
-    }
-    .nav-list li a {
-      font-size: 14px;
     }
     .container {
       padding: 100px 0 40px;
