@@ -1,0 +1,266 @@
+/* CSS Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Global Styles */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Sticky Header */
+  header {
+    background: #004c99;
+    color: #fff;
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Navigation - Keep links in one line on mobile */
+  .nav-list {
+    display: flex;
+    flex-wrap: nowrap; /* prevent wrapping */
+    justify-content: center;
+    list-style: none;
+    overflow-x: auto;
+  }
+  
+  .nav-list li {
+    margin: 0 10px;
+  }
+  
+  .nav-list li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  
+  .nav-list li a:hover {
+    color: #ffcc00;
+  }
+  
+  /* Container */
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 0; /* Extra top space for fixed header */
+  }
+  
+  /* Sections */
+  .section {
+    padding: 60px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .section:last-child {
+    border-bottom: none;
+  }
+  
+  h1, h2 {
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Home Section */
+  #home p {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .service-area-map {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* General Text & Lists */
+  p, ul {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Our Services Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  
+  .card h3 {
+    margin-bottom: 10px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.2em;
+  }
+  
+  /* Contact Section */
+  #contact p {
+    font-size: 1em;
+    margin-bottom: 30px;
+  }
+  
+  /* Service Check / Address Lookup */
+  .service-check {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  /* Autocomplete Suggestions */
+  .autocomplete-suggestions {
+    display: none;
+    margin: 10px auto;
+    width: 80%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .autocomplete-suggestion:hover {
+    background: #f1f1f1;
+  }
+  
+  /* Result Message Styles */
+  .result-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 1.1em;
+  }
+  
+  .result-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 1.1em;
+  }
+  
+  .call-button {
+    display: inline-block;
+    background-color: #004c99;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .call-button:hover {
+    background-color: #003366;
+  }
+  
+  .phone-number {
+    font-size: 1em;
+    margin-left: 10px;
+    color: #004c99;
+  }
+  
+  /* Back to Top Button */
+  #back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #004c99;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+    transition: background-color 0.3s ease;
+  }
+  
+  #back-to-top:hover {
+    background-color: #003366;
+  }
+  
+  /* Fade-in Animation */
+  .fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  
+  .fade.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .nav-list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    .nav-list li {
+      margin: 0 5px;
+    }
+    .nav-list li a {
+      font-size: 14px;
+    }
+    .container {
+      padding: 100px 0 40px;
+    }
+    input[type="text"],
+    .autocomplete-suggestions {
+      width: 90%;
+    }
+  }
+  

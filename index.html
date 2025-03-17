@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steve's Professional Handyman Service</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=4.0">
+  <link rel="icon" href="data:,">
+  <meta http-equiv="Content-Security-Policy" content="
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+        img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
+        frame-src *.google.com;
+        connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true https://maps.googleapis.com/maps/api/geocode/json?address=930%20W%20trindle%20Rd&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w data: blob:;
+        font-src https://fonts.gstatic.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src blob:;
+    ">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Cache-Control" content="max-age=31536000, must-revalidate">
+  <style>
+    /* Inline style for smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky Navigation Header -->
+  <header>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Content -->
+  <main>
+    <!-- Home Section with Service Area Map -->
+    <section id="home" class="section fade">
+      <div class="container">
+        <h1>Steve's Professional Handyman Service</h1>
+        <p>No job too small, some jobs too big.</p>
+        <img src="ServiceArea.png" alt="Service Area Map" class="service-area-map">
+      </div>
+    </section>
+    
+    <!-- About Us Section -->
+    <section id="about" class="section fade">
+      <div class="container">
+        <h2>About Us</h2>
+        <p>
+          Steve's Professional Handyman Service began with a strong family tradition. As a teenager, Steve worked for his father at Stahl and Sons, one of seven boys in a hardworking family. After honing his skills at a larger construction company, he discovered that providing personal, quality service for friends and family was his true passion.
+        </p>
+        <p>
+          With over <strong>35 years</strong> of experience, Steve has proudly served Mifflinburg, PA and the surrounding areas for more than <strong>30 years</strong>. His local roots run deep—his father once owned a large plot of land in the area that was subdivided among the brothers. Community matters deeply to Steve; as a dedicated church-goer and active community member, he supports local businesses and gives back whenever he can.
+        </p>
+        <p>
+          Now, working side-by-side with his son as his business partner, Steve upholds the values of reliability, honesty, and exceptional craftsmanship in every project.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Services Section with Cards -->
+    <section id="services" class="section fade">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>General Home Maintenance</h3>
+          </div>
+          <div class="card">
+            <h3>Electrical Services</h3>
+          </div>
+          <div class="card">
+            <h3>Carpentry &amp; Woodwork</h3>
+          </div>
+          <div class="card">
+            <h3>Exterior &amp; Outdoor Maintenance</h3>
+          </div>
+          <div class="card">
+            <h3>Seasonal Services</h3>
+          </div>
+          <div class="card">
+            <h3>Minor Plumbing Services</h3>
+          </div>
+          <div class="card">
+            <h3>Painting &amp; Drywall Patching</h3>
+          </div>
+          <div class="card">
+            <h3>Miscellaneous and More...</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Testimonials & Portfolio Section -->
+    <section id="testimonials" class="section fade">
+      <div class="container">
+        <h2>Testimonials &amp; Portfolio</h2>
+        <p>[Coming Soon: Customer reviews and before/after photos]</p>
+      </div>
+    </section>
+    
+    <!-- Contact Section with Address Lookup -->
+    <section id="contact" class="section fade">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>
+          Enter your address below to verify that we service your area. If your address is within our service area, you'll receive our phone numbers so you can schedule service or request a free quote.
+          <br><br>
+          Our quotes are determined based on the job’s scope, required materials, and labor. We provide a comprehensive, no-obligation estimate so you know exactly what to expect—no hidden fees.
+        </p>
+        <div class="service-check">
+          <input type="text" id="address" placeholder="Enter your address" autocomplete="on">
+          <div id="suggestions" class="autocomplete-suggestions"></div>
+          <p id="result"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Back to Top">&#8679;</button>
+  
+  <!-- Scripts -->
+  <script>
+    // Google Maps API for Address Validation
+    const apiKey = 'AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w';
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+    
+    let selectedLocation;
+    let debounceTimeout;
+    
+    // Polygon coordinates for Mifflinburg, PA service area
+    const polygonCoordinates = [
+      [40.89976036643661, -77.19706535339357],
+      [41.10529040590998, -76.86833381652833],
+      [41.03754218161521, -76.83340072631837],
+      [40.976398939081875, -76.82194232940675],
+      [40.88600529691199, -76.7827606201172],
+      [40.87951606398255, -76.80301666259767],
+      [40.83887900876265, -76.81709289550783],
+      [40.78898991298749, -76.85588836669923],
+      [40.751678516237334, -76.94652557373048],
+      [40.767541670057255, -77.05638885498048],
+      [40.875232821712515, -77.10067749023439]
+    ];
+    
+    // Address input: debounce and clear previous results when input is empty
+    document.getElementById('address').addEventListener('input', () => {
+      clearTimeout(debounceTimeout);
+      const addressValue = document.getElementById('address').value.trim();
+      
+      if(addressValue.length < 1){
+          document.getElementById('result').innerHTML = "";
+          const suggestions = document.getElementById('suggestions');
+          suggestions.innerHTML = "";
+          suggestions.style.display = "none";
+          return;
+      }
+      
+      debounceTimeout = setTimeout(validateAddress, 500);
+    });
+    
+    function validateAddress() {
+      const address = document.getElementById('address').value.trim();
+      const suggestions = document.getElementById('suggestions');
+      if (address.length > 3) {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+          .then(response => response.json())
+          .then(data => {
+            suggestions.innerHTML = '';
+            if (data.results.length > 0) {
+              suggestions.style.display = "block";
+              data.results.forEach(result => {
+                const { formatted_address, geometry } = result;
+                const suggestion = document.createElement('div');
+                suggestion.className = 'autocomplete-suggestion';
+                suggestion.innerText = formatted_address;
+                suggestion.onclick = () => selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng);
+                suggestions.appendChild(suggestion);
+              });
+              document.getElementById('result').innerText = '';
+            } else {
+              suggestions.style.display = "none";
+              document.getElementById('result').innerText = 'No valid address found or please enter a more complete address.';
+            }
+          })
+          .catch(error => {
+            console.error('Error validating address:', error);
+            suggestions.style.display = "none";
+            document.getElementById('result').innerText = 'Error validating address. Please try again.';
+          });
+      } else {
+        document.getElementById('result').innerText = 'Please enter a more complete address.';
+        suggestions.style.display = "none";
+      }
+    }
+    
+    function selectSuggestion(formattedAddress, lat, lon) {
+      const suggestions = document.getElementById('suggestions');
+      document.getElementById('address').value = formattedAddress;
+      suggestions.innerHTML = '';
+      suggestions.style.display = "none";
+      selectedLocation = { lat: parseFloat(lat), lng: parseFloat(lon) };
+      document.getElementById('result').innerHTML = '';
+      checkServiceArea();
+    }
+    
+    function checkServiceArea() {
+      const resultEl = document.getElementById('result');
+      resultEl.classList.remove("result-success", "result-error");
+      
+      if (!selectedLocation) {
+        resultEl.innerText = "Please select a valid address from the suggestions.";
+        return;
+      }
+      
+      const point = [selectedLocation.lat, selectedLocation.lng];
+      const isInPolygon = isPointInPolygon(point, polygonCoordinates);
+      
+      if (isInPolygon) {
+        resultEl.classList.add("result-success");
+        resultEl.innerHTML = `
+          Yes, we service your area!<br><br>
+          <a href="tel:570-217-7290" class="call-button">Call Steve</a>
+          <span class="phone-number">(570-217-7290)</span><br><br>
+          <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
+          <span class="phone-number">(570-452-6429)</span>
+        `;
+      } else {
+        resultEl.classList.add("result-error");
+        resultEl.innerHTML = 'Sorry, you are outside our service area.';
+      }
+    }
+    
+    function isPointInPolygon(point, vs) {
+      let x = point[0], y = point[1];
+      let inside = false;
+      for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        let xi = vs[i][0], yi = vs[i][1];
+        let xj = vs[j][0], yj = vs[j][1];
+        let intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+    
+    function initMap() {
+      // Optional: Initialize map functionality if needed.
+    }
+    
+    // Fade-in on scroll functionality
+    const faders = document.querySelectorAll('.fade');
+    const appearOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+    
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        appearOnScroll.unobserve(entry.target);
+      });
+    }, appearOptions);
+    
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+    
+    // Back to Top Button functionality
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
