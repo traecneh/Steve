@@ -157,6 +157,18 @@
     text-align: center;
   }
   
+  /* Force two columns on mobile */
+  @media (max-width: 480px) {
+    .before-after-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .before-after-img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  
   .before-after-card {
     background: #fff;
     padding: 10px;
