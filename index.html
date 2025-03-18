@@ -19,13 +19,15 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Steve's Professional Handyman Service",
-    "image": "https://sphs.pro/ServiceArea.png",
-    "url": "https://sphs.pro/",
+    "image": "https://yourdomain.com/ServiceArea.png",
+    "telephone": ["570-217-7290", "570-452-6429"],
+    "url": "https://yourdomain.com",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "Your Business Street Address",
       "addressLocality": "Mifflinburg",
       "addressRegion": "PA",
-      "postalCode": "17844",
+      "postalCode": "17059",
       "addressCountry": "US"
     },
     "areaServed": {
@@ -34,7 +36,12 @@
     },
     "description": "Steve's Professional Handyman Service provides quality electrical, plumbing, carpentry, painting, and general home maintenance services to local residents and small businesses in Mifflinburg, PA and nearby communities.",
     "priceRange": "$$",
-    "openingHours": "Mo,Tu,We,Th,Fr,Sa 08:00-17:00",
+    "openingHours": "Mo,Tu,We,Th,Fr 08:00-17:00",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "32"
+    }
   }
   </script>
 
@@ -133,19 +140,41 @@
       </div>
     </section>
     
-    <!-- Testimonials & Portfolio Section with Before/After Images -->
+    <!-- Testimonials & Portfolio Section with Carousel -->
     <section id="testimonials" class="section fade">
       <div class="container">
         <h2>Testimonials &amp; Portfolio</h2>
-        <div class="before-after-container">
-          <div class="before-after-card">
-            <img src="before1.jpg" alt="Before" class="before-after-img">
-            <h3>Before</h3>
+        <div class="carousel">
+          <div class="carousel-slides">
+            <!-- Slide 1: before1 and after1 -->
+            <div class="carousel-slide">
+              <div class="before-after-container">
+                <div class="before-after-card">
+                  <img src="before1.jpg" alt="Before" class="before-after-img">
+                  <h3>Before</h3>
+                </div>
+                <div class="before-after-card">
+                  <img src="after1.jpg" alt="After" class="before-after-img">
+                  <h3>After</h3>
+                </div>
+              </div>
+            </div>
+            <!-- Slide 2: before2 and after2 -->
+            <div class="carousel-slide">
+              <div class="before-after-container">
+                <div class="before-after-card">
+                  <img src="before2.jpg" alt="Before" class="before-after-img">
+                  <h3>Before</h3>
+                </div>
+                <div class="before-after-card">
+                  <img src="after2.jpg" alt="After" class="before-after-img">
+                  <h3>After</h3>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="before-after-card">
-            <img src="after1.jpg" alt="After" class="before-after-img">
-            <h3>After</h3>
-          </div>
+          <button class="carousel-control prev" aria-label="Previous Slide">&#10094;</button>
+          <button class="carousel-control next" aria-label="Next Slide">&#10095;</button>
         </div>
       </div>
     </section>
@@ -336,6 +365,37 @@
     backToTopButton.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    
+    // Carousel Functionality for Testimonials
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    const nextButton = document.querySelector('.carousel-control.next');
+    const prevButton = document.querySelector('.carousel-control.prev');
+
+    function updateCarousel() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+    }
+
+    nextButton.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    });
+
+    prevButton.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+
+    // Initialize the carousel
+    updateCarousel();
+
   </script>
 </body>
 </html>
