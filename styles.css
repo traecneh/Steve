@@ -17,7 +17,10 @@
   header {
     background: #004c99;
     color: #fff;
-    padding: 15px 20px;
+    height: 60px; /* Set a fixed height */
+    display: flex;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
     position: fixed;
     width: 100%;
     top: 0;
@@ -25,13 +28,14 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
-  /* Navigation - Default styling */
   .nav-list {
     display: flex;
-    flex-wrap: nowrap;
+    align-items: center; /* Ensure links are centered vertically */
     justify-content: center;
     list-style: none;
-    overflow-x: auto;
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
   
   .nav-list li {
