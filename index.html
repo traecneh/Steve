@@ -147,7 +147,7 @@
         <div class="carousel">
           <div class="carousel-slides">
             <!-- Slide 1: before1 and after1 -->
-            <div class="carousel-slide">
+            <div class="carousel-slide active">
               <div class="before-after-container">
                 <div class="before-after-card">
                   <img src="before1.jpg" alt="Before" class="before-after-img">
@@ -372,7 +372,7 @@
     const totalSlides = slides.length;
     const nextButton = document.querySelector('.carousel-control.next');
     const prevButton = document.querySelector('.carousel-control.prev');
-
+    
     function updateCarousel() {
       slides.forEach((slide, index) => {
         if (index === currentSlide) {
@@ -382,20 +382,19 @@
         }
       });
     }
-
+    
     nextButton.addEventListener('click', () => {
       currentSlide = (currentSlide + 1) % totalSlides;
       updateCarousel();
     });
-
+    
     prevButton.addEventListener('click', () => {
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       updateCarousel();
     });
-
+    
     // Initialize the carousel
     updateCarousel();
-
   </script>
 </body>
 </html>

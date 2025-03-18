@@ -158,7 +158,6 @@ p, ul {
 .carousel-slides {
   position: relative;
   overflow: hidden;
-  /* Remove flex-based transform approach */
 }
 
 .carousel-slide {
@@ -169,7 +168,6 @@ p, ul {
 .carousel-slide.active {
   display: block;
 }
-
 
 /* Carousel Controls */
 .carousel-control {
@@ -220,7 +218,7 @@ p, ul {
   transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
-
+  
 .before-after-card h3 {
   margin-top: 10px;
   font-family: 'Roboto Slab', serif;
