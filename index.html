@@ -7,10 +7,12 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-E3XWDWC24Z');
   </script>
-  <meta charset="UTF-8">
+  
+  <!-- Ensure proper charset in both meta and HTTP header (the latter should be set server-side) -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Steve's Professional Handyman Service | Mifflinburg, PA</title>
   
@@ -53,20 +55,25 @@
     }
   }
   </script>
+  
+  <!-- Google Maps API loaded directly in the head with &loading=async -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w&loading=async&callback=initMap"></script>
 
+  <!-- Content Security Policy (CSP) is set via a meta tag here but should ideally be sent as an HTTP header -->
   <meta http-equiv="Content-Security-Policy" content="
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-        img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
+        img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
         frame-src *.google.com;
         connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true https://maps.googleapis.com/maps/api/geocode/json?address=930%20W%20trindle%20Rd&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w data: blob:;
         font-src https://fonts.gstatic.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         worker-src blob:;
     ">
+  <!-- Security header as meta tag (better to set on server) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="Cache-Control" content="max-age=31536000, must-revalidate">
+  
+  <!-- Inline style for smooth scrolling -->
   <style>
-    /* Inline style for smooth scrolling */
     html {
       scroll-behavior: smooth;
     }
@@ -211,13 +218,7 @@
   
   <!-- Scripts -->
   <script>
-    // Google Maps API for Address Validation
-    const apiKey = 'AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w';
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
+    // The Google Maps API is now loaded directly from the head with proper async loading.
     
     let selectedLocation;
     let debounceTimeout;
@@ -242,12 +243,12 @@
       clearTimeout(debounceTimeout);
       const addressValue = document.getElementById('address').value.trim();
       
-      if(addressValue.length < 1){
-          document.getElementById('result').innerHTML = "";
-          const suggestions = document.getElementById('suggestions');
-          suggestions.innerHTML = "";
-          suggestions.style.display = "none";
-          return;
+      if (addressValue.length < 1) {
+        document.getElementById('result').innerHTML = "";
+        const suggestions = document.getElementById('suggestions');
+        suggestions.innerHTML = "";
+        suggestions.style.display = "none";
+        return;
       }
       
       debounceTimeout = setTimeout(validateAddress, 500);
@@ -257,7 +258,7 @@
       const address = document.getElementById('address').value.trim();
       const suggestions = document.getElementById('suggestions');
       if (address.length > 3) {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w`)
           .then(response => response.json())
           .then(data => {
             suggestions.innerHTML = '';
