@@ -5,6 +5,12 @@
   padding: 0;
 }
 
+/* Color Variables */
+:root {
+  --primary-color: #004c99;
+  --primary-dark: #003366;
+}
+
 /* Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
@@ -15,7 +21,7 @@ body {
 
 /* Sticky Header */
 header {
-  background: #004c99;
+  background: var(--primary-color);
   color: #fff;
   height: 60px; /* Set a fixed height */
   display: flex;
@@ -223,7 +229,7 @@ p, ul {
   margin-top: 10px;
   font-family: 'Roboto Slab', serif;
   font-size: 1.2em;
-  color: #004c99;
+  color: var(--primary-color);
 }
 
 /* Contact Section */
@@ -294,7 +300,7 @@ input[type="text"] {
 /* Call Button and Phone Number Styling */
 .call-button {
   display: inline-block;
-  background-color: #004c99;
+  background-color: var(--primary-color);
   color: #fff;
   padding: 10px 20px;
   border-radius: 4px;
@@ -304,7 +310,7 @@ input[type="text"] {
 }
 
 .call-button:hover {
-  background-color: #003366;
+  background-color: var(--primary-dark);
 }
 
 /* Phone number now displays as a block below the button */
@@ -313,7 +319,7 @@ input[type="text"] {
   text-align: center;
   font-size: 1em;
   margin-top: 5px;
-  color: #004c99;
+  color: var(--primary-color);
 }
 
 /* Back to Top Button */
@@ -321,7 +327,7 @@ input[type="text"] {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #004c99;
+  background-color: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -334,7 +340,7 @@ input[type="text"] {
 }
 
 #back-to-top:hover {
-  background-color: #003366;
+  background-color: var(--primary-dark);
 }
 
 /* Fade-in Animation */
