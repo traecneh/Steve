@@ -359,3 +359,30 @@ input[type="text"] {
     width: 90%;
   }
 }
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fade,
+  .fade.appear {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card,
+  .card:hover,
+  .before-after-card,
+  .before-after-card:hover,
+  .call-button,
+  #back-to-top,
+  .autocomplete-suggestion {
+    transition: none;
+  }
+  .card:hover,
+  .before-after-card:hover {
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+}
