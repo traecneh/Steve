@@ -50,6 +50,11 @@ header {
   white-space: nowrap;
 }
 
+.nav-list li a:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+}
+
 /* Mobile Navigation: Wrap into two rows */
 @media (max-width: 480px) {
   .nav-list {
@@ -183,6 +188,11 @@ p, ul {
   border-radius: 50%;
 }
 
+.carousel-control:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+}
+
 .carousel-control.prev {
   left: 10px;
 }
@@ -303,8 +313,14 @@ input[type="text"] {
   transition: background-color 0.3s ease;
 }
 
-.call-button:hover {
+.call-button:hover,
+.call-button:focus {
   background-color: #003366;
+}
+
+.call-button:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
 }
 
 /* Phone number now displays as a block below the button */
@@ -333,8 +349,14 @@ input[type="text"] {
   transition: background-color 0.3s ease;
 }
 
-#back-to-top:hover {
+#back-to-top:hover,
+#back-to-top:focus {
   background-color: #003366;
+}
+
+#back-to-top:focus {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
 }
 
 /* Fade-in Animation */
