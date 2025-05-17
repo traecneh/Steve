@@ -366,3 +366,9 @@ input[type="text"] {
     width: 90%;
   }
 }
+
+@media (max-width: 600px) {
+  .before-after-container {
+    grid-template-columns: 1fr;
+  }
+}
