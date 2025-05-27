@@ -9,13 +9,13 @@
     gtag('js', new Date());
     gtag('config', 'G-E3XWDWC24Z');
   </script>
-  
-  <!-- Ensure proper charset in both meta and HTTP header (the latter should be set server-side) -->
+
+  <!-- Ensure proper charset -->
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Steve's Professional Handyman Service | Mifflinburg, PA</title>
-  
+
   <!-- Meta Description and Keywords for Local SEO -->
   <meta name="description" content="Steve's Professional Handyman Service provides reliable electrical, plumbing, carpentry, painting, and general home maintenance services to Mifflinburg, PA and surrounding areas including Milton, Lewisburg, Selinsgrove, and more.">
   <meta name="keywords" content="handyman, Mifflinburg, PA, Milton, Lewisburg, Selinsgrove, home maintenance, electrical services, plumbing, carpentry, painting, handyman service">
@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
   <link rel="stylesheet" href="styles.css?v=6.0">
   <link rel="icon" href="favicon.png" type="image/png">
-  
+
   <!-- LocalBusiness Schema Markup -->
   <script type="application/ld+json">
   {
@@ -55,30 +55,27 @@
     }
   }
   </script>
-  
-  <!-- Google Maps API loaded directly in the head with &loading=async -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w&loading=async&callback=initMap"></script>
 
-  <!-- Content Security Policy (CSP) is set via a meta tag here but should ideally be sent as an HTTP header -->
+  <!-- Google Maps -->
+  <script async
+          defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w&loading=async&callback=initMap">
+  </script>
+
+  <!-- CSP (ideally send via HTTP header) -->
   <meta http-equiv="Content-Security-Policy" content="
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-        img-src 'self' https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
-        frame-src *.google.com;
-        connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true https://maps.googleapis.com/maps/api/geocode/ data: blob:;
-        font-src https://fonts.gstatic.com;
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        worker-src blob:;
-    ">
-  <!-- Security header as meta tag (better to set on server) -->
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
+      img-src    'self' https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
+      frame-src  *.google.com;
+      connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true https://maps.googleapis.com/maps/api/geocode/ data: blob:;
+      font-src   https://fonts.gstatic.com;
+      style-src  'self' 'unsafe-inline' https://fonts.googleapis.com;
+      worker-src blob:;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  
-  <!-- Inline style for smooth scrolling -->
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+
+  <style>html{scroll-behavior:smooth}</style>
 </head>
+
 <body>
   <!-- Sticky Navigation Header -->
   <header>
@@ -92,118 +89,89 @@
       </ul>
     </nav>
   </header>
-  
+
   <!-- Main Content -->
   <main>
-    <!-- Home Section with Service Area Map and Extra Text -->
+    <!-- Home Section -->
     <section id="home" class="section fade">
       <div class="container">
         <h1>Steve's Professional Handyman Service</h1>
         <p>No job too small, some jobs too big.</p>
         <p class="subtext">
-            Need pictures hung or light bulbs changed? Whether it's electrical work, minor plumbing repairs, troubleshooting outdoor landscape lighting, general construction tasks, or nearly any home maintenance and small business project in between—we've proudly met these needs for hundreds of satisfied customers throughout Mifflinburg, PA and surrounding areas.
+          Need pictures hung or light bulbs changed? Whether it's electrical work, minor plumbing repairs,
+          troubleshooting outdoor landscape lighting, general construction tasks, or nearly any home maintenance
+          and small business project in between—we've proudly met these needs for hundreds of satisfied customers
+          throughout Mifflinburg, PA and surrounding areas.
         </p>
         <img src="ServiceArea.png" alt="Service Area Map" class="service-area-map">
       </div>
     </section>
-    
+
     <!-- About Us Section -->
     <section id="about" class="section fade">
       <div class="container">
         <h2>About Us</h2>
         <p>
-          Steve's Professional Handyman Service began with a strong family tradition. As a teenager, Steve worked for his father at Stahl and Sons, one of seven boys in a hardworking family. After honing his skills at a larger construction company, he discovered that providing personal, quality service for friends and family was his true passion.
+          Steve's Professional Handyman Service began with a strong family tradition. As a teenager, Steve worked for
+          his father at Stahl and Sons, one of seven boys in a hardworking family. After honing his skills at a larger
+          construction company, he discovered that providing personal, quality service for friends and family was his
+          true passion.
         </p>
         <p>
-          With over <strong>35 years</strong> of experience, Steve has proudly served Mifflinburg, PA and the surrounding areas for more than <strong>30 years</strong>. Community matters deeply to Steve; as a dedicated church-goer and active community member, he supports local businesses and gives back whenever he can.
+          With over <strong>35 years</strong> of experience, Steve has proudly served Mifflinburg, PA and the surrounding
+          areas for more than <strong>30 years</strong>. Community matters deeply to Steve; as a dedicated church-goer
+          and active community member, he supports local businesses and gives back whenever he can.
         </p>
         <p>
-          Now, working side-by-side with his son as his business partner, Steve upholds the values of reliability, honesty, and exceptional craftsmanship in every project.
+          Now, working side-by-side with his son as his business partner, Steve upholds the values of reliability,
+          honesty, and exceptional craftsmanship in every project.
         </p>
       </div>
     </section>
-    
-    <!-- Services Section with Cards -->
+
+    <!-- Services Section -->
     <section id="services" class="section fade">
       <div class="container">
         <h2>Our Services</h2>
         <div class="cards">
-          <div class="card">
-            <h3>General Home Maintenance</h3>
-          </div>
-          <div class="card">
-            <h3>Electrical Services</h3>
-          </div>
-          <div class="card">
-            <h3>Carpentry &amp; Woodwork</h3>
-          </div>
-          <div class="card">
-            <h3>Exterior &amp; Outdoor Maintenance</h3>
-          </div>
-          <div class="card">
-            <h3>Seasonal Services</h3>
-          </div>
-          <div class="card">
-            <h3>Minor Plumbing Services</h3>
-          </div>
-          <div class="card">
-            <h3>Painting &amp; Drywall Patching</h3>
-          </div>
-          <div class="card">
-            <h3>Miscellaneous and More...</h3>
-          </div>
+          <div class="card"><h3>General Home Maintenance</h3></div>
+          <div class="card"><h3>Electrical Services</h3></div>
+          <div class="card"><h3>Carpentry &amp; Woodwork</h3></div>
+          <div class="card"><h3>Exterior &amp; Outdoor Maintenance</h3></div>
+          <div class="card"><h3>Seasonal Services</h3></div>
+          <div class="card"><h3>Minor Plumbing Services</h3></div>
+          <div class="card"><h3>Painting &amp; Drywall Patching</h3></div>
+          <div class="card"><h3>Miscellaneous and More...</h3></div>
         </div>
       </div>
     </section>
-    
-    <!-- Testimonials & Portfolio Section with Carousel -->
+
+    <!-- Testimonials & Portfolio Section (auto-generated) -->
     <section id="testimonials" class="section fade">
       <div class="container">
         <h2>Testimonials &amp; Portfolio</h2>
+
         <div class="carousel">
-          <div class="carousel-slides">
-            <!-- Slide 1: before1 and after1 -->
-            <div class="carousel-slide active">
-              <div class="before-after-container">
-                <div class="before-after-card">
-                  <img src="before1.jpg" alt="Before" class="before-after-img">
-                  <h3>Before</h3>
-                </div>
-                <div class="before-after-card">
-                  <img src="after1.jpg" alt="After" class="before-after-img">
-                  <h3>After</h3>
-                </div>
-              </div>
-            </div>
-            <!-- Slide 2: before2 and after2 -->
-            <div class="carousel-slide">
-              <div class="before-after-container">
-                <div class="before-after-card">
-                  <img src="before2.jpg" alt="Before" class="before-after-img">
-                  <h3>Before</h3>
-                </div>
-                <div class="before-after-card">
-                  <img src="after2.jpg" alt="After" class="before-after-img">
-                  <h3>After</h3>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="carousel-slides" id="slide-track"><!-- slides injected here --></div>
+
           <button class="carousel-control prev" aria-label="Previous Slide">&#10094;</button>
           <button class="carousel-control next" aria-label="Next Slide">&#10095;</button>
         </div>
       </div>
     </section>
-    
-    <!-- Contact Section with Address Lookup -->
+
+    <!-- Contact Section -->
     <section id="contact" class="section fade">
       <div class="container">
         <h2>Contact Us</h2>
         <p>
-          Enter your address below to verify that we service your area. If your address is within our service area, you'll receive our phone numbers so you can schedule service or request a free quote.
+          Enter your address below to verify that we service your area. If your address is within our
+          service area, you'll receive our phone numbers so you can schedule service or request a free quote.
           <br><br>
-          Our quotes are determined based on the job’s scope, required materials, and labor. We provide a comprehensive, no-obligation estimate so you know exactly what to expect—no hidden fees.
+          Our quotes are determined based on the job’s scope, required materials, and labor. We provide
+          a comprehensive, no-obligation estimate so you know exactly what to expect—no hidden fees.
         </p>
+
         <div class="service-check">
           <input type="text" id="address" placeholder="Enter your address" autocomplete="on">
           <div id="suggestions" class="autocomplete-suggestions"></div>
@@ -212,18 +180,15 @@
       </div>
     </section>
   </main>
-  
-  <!-- Back to Top Button -->
+
+  <!-- Back-to-Top Button -->
   <button id="back-to-top" title="Back to Top">&#8679;</button>
-  
-  <!-- Scripts -->
+
+  <!-- -------------------- Scripts -------------------- -->
   <script>
-    // The Google Maps API is now loaded directly from the head with proper async loading.
-    
+    /* ----------- Service-area address helper (unchanged) ----------- */
     let selectedLocation;
     let debounceTimeout;
-    
-    // Polygon coordinates for Mifflinburg, PA service area
     const polygonCoordinates = [
       [40.89976036643661, -77.19706535339357],
       [41.10529040590998, -76.86833381652833],
@@ -237,174 +202,154 @@
       [40.767541670057255, -77.05638885498048],
       [40.875232821712515, -77.10067749023439]
     ];
-    
-    // Address input: debounce and clear previous results when input is empty
+
     document.getElementById('address').addEventListener('input', () => {
       clearTimeout(debounceTimeout);
-      const addressValue = document.getElementById('address').value.trim();
-      
-      if (addressValue.length < 1) {
+      const v = document.getElementById('address').value.trim();
+      if (v.length < 1) {
         document.getElementById('result').innerHTML = "";
-        const suggestions = document.getElementById('suggestions');
-        suggestions.innerHTML = "";
-        suggestions.style.display = "none";
-        return;
+        const sug = document.getElementById('suggestions');
+        sug.innerHTML = ""; sug.style.display = "none"; return;
       }
-      
       debounceTimeout = setTimeout(validateAddress, 500);
     });
-    
+
     function validateAddress() {
       const address = document.getElementById('address').value.trim();
       const suggestions = document.getElementById('suggestions');
       if (address.length > 3) {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w`)
-          .then(response => response.json())
+          .then(r => r.json())
           .then(data => {
             suggestions.innerHTML = '';
-            if (data.results.length > 0) {
+            if (data.results.length) {
               suggestions.style.display = "block";
-              data.results.forEach(result => {
-                const { formatted_address, geometry } = result;
-                const suggestion = document.createElement('div');
-                suggestion.className = 'autocomplete-suggestion';
-                suggestion.innerText = formatted_address;
-                suggestion.onclick = () => selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng);
-                suggestions.appendChild(suggestion);
+              data.results.forEach(res => {
+                const {formatted_address, geometry} = res;
+                const div = document.createElement('div');
+                div.className='autocomplete-suggestion'; div.textContent=formatted_address;
+                div.onclick=()=>selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng);
+                suggestions.appendChild(div);
               });
-              document.getElementById('result').innerText = '';
-            } else {
-              suggestions.style.display = "none";
-              document.getElementById('result').innerText = 'No valid address found or please enter a more complete address.';
-            }
+              document.getElementById('result').textContent='';
+            } else { suggestions.style.display="none";
+              document.getElementById('result').textContent='No valid address found or please enter a more complete address.';}
           })
-          .catch(error => {
-            console.error('Error validating address:', error);
-            suggestions.style.display = "none";
-            document.getElementById('result').innerText = 'Error validating address. Please try again.';
-          });
-      } else {
-        document.getElementById('result').innerText = 'Please enter a more complete address.';
-        suggestions.style.display = "none";
-      }
+          .catch(()=>{ suggestions.style.display="none";
+                       document.getElementById('result').textContent='Error validating address. Please try again.';});
+      } else { document.getElementById('result').textContent='Please enter a more complete address.';
+               suggestions.style.display="none";}
     }
-    
-    function selectSuggestion(formattedAddress, lat, lon) {
-      const suggestions = document.getElementById('suggestions');
-      document.getElementById('address').value = formattedAddress;
-      suggestions.innerHTML = '';
-      suggestions.style.display = "none";
-      selectedLocation = { lat: parseFloat(lat), lng: parseFloat(lon) };
-      document.getElementById('result').innerHTML = '';
-      checkServiceArea();
+
+    function selectSuggestion(addr, lat, lon){
+      const sug=document.getElementById('suggestions');
+      document.getElementById('address').value=addr; sug.innerHTML=''; sug.style.display='none';
+      selectedLocation={lat:+lat,lng:+lon}; document.getElementById('result').innerHTML=''; checkServiceArea();
     }
-    
-    function checkServiceArea() {
-      const resultEl = document.getElementById('result');
-      resultEl.classList.remove("result-success", "result-error");
-      
-      if (!selectedLocation) {
-        resultEl.innerText = "Please select a valid address from the suggestions.";
-        return;
-      }
-      
-      const point = [selectedLocation.lat, selectedLocation.lng];
-      const isInPolygon = isPointInPolygon(point, polygonCoordinates);
-      
-      if (isInPolygon) {
-        resultEl.classList.add("result-success");
-        resultEl.innerHTML = `
-          Yes, we service your area!<br><br>
-          <a href="tel:570-217-7290" class="call-button">Call Steve</a>
-          <div class="phone-number">(570-217-7290)</div>
-          <br>
-          <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
-          <div class="phone-number">(570-452-6429)</div>
-        `;
-      } else {
-        resultEl.classList.add("result-error");
-        resultEl.innerHTML = 'Sorry, you are outside our service area.';
-      }
+
+    function checkServiceArea(){
+      const res=document.getElementById('result'); res.classList.remove("result-success","result-error");
+      if(!selectedLocation){res.innerText="Please select a valid address from the suggestions."; return;}
+      const point=[selectedLocation.lat,selectedLocation.lng];
+      const inside=isPointInPolygon(point,polygonCoordinates);
+      if(inside){
+        res.classList.add("result-success"); res.innerHTML=
+          `Yes, we service your area!<br><br>
+           <a href="tel:570-217-7290" class="call-button">Call Steve</a>
+           <div class="phone-number">(570-217-7290)</div><br>
+           <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
+           <div class="phone-number">(570-452-6429)</div>`;
+      } else { res.classList.add("result-error");
+               res.innerHTML='Sorry, you are outside our service area.';}
     }
-    
-    function isPointInPolygon(point, vs) {
-      let x = point[0], y = point[1];
-      let inside = false;
-      for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-        let xi = vs[i][0], yi = vs[i][1];
-        let xj = vs[j][0], yj = vs[j][1];
-        let intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-        if (intersect) inside = !inside;
-      }
-      return inside;
+    function isPointInPolygon(pt, vs){
+      let x=pt[0],y=pt[1],inside=false;
+      for(let i=0,j=vs.length-1;i<vs.length;j=i++){
+        let xi=vs[i][0], yi=vs[i][1], xj=vs[j][0], yj=vs[j][1];
+        const intersect=((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi);
+        if(intersect) inside=!inside;
+      } return inside;
     }
-    
-    function initMap() {
-      // Optional: Initialize map functionality if needed.
+    function initMap(){/* optional */}
+
+
+    /* ------------- Fade-in on scroll ------------- */
+    const faders=document.querySelectorAll('.fade');
+    const appearOnScroll=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(e=>{if(!e.isIntersecting)return; e.target.classList.add('appear'); obs.unobserve(e.target);});
+    },{threshold:0.1,rootMargin:"0px 0px -50px 0px"});
+    faders.forEach(f=>appearOnScroll.observe(f));
+
+    /* ------------- Back-to-Top button ------------- */
+    const back=document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>{back.style.display=window.pageYOffset>300?'block':'none';});
+    back.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  </script>
+
+  <!-- ------------- AUTO-BUILD TESTIMONIAL CAROUSEL ------------- -->
+  <script>
+  /******************************************************************
+   * 1. Build slides from numbered before#/after#.jpg files
+   ******************************************************************/
+  async function buildSlides() {
+    const track = document.getElementById('slide-track');
+    let idx = 1;
+    const pairs = [];
+
+    async function imgExists(url) {
+      try { const r = await fetch(url, {method:'HEAD'}); return r.ok; }
+      catch { return false; }
     }
-    
-    // Fade-in on scroll functionality
-    const faders = document.querySelectorAll('.fade');
-    const appearOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    };
-    
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('appear');
-        observer.unobserve(entry.target);
-      });
-    }, appearOptions);
-    
-    faders.forEach(fader => {
-      appearOnScroll.observe(fader);
+
+    while (true) {
+      const before = `before${idx}.jpg`;
+      const after  = `after${idx}.jpg`;
+      if (!(await imgExists(before)) || !(await imgExists(after))) break;
+      pairs.push({before,after}); idx++;
+    }
+
+    pairs.forEach(({before,after}, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide' + (i===0 ? ' active' : '');
+      slide.innerHTML = `
+        <div class="before-after-container">
+          <div class="before-after-card">
+            <img src="${before}" alt="Before ${i+1}" class="before-after-img">
+            <h3>Before</h3>
+          </div>
+          <div class="before-after-card">
+            <img src="${after}" alt="After ${i+1}" class="before-after-img">
+            <h3>After</h3>
+          </div>
+        </div>`;
+      track.appendChild(slide);
     });
-    
-    // Back to Top Button functionality
-    const backToTopButton = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTopButton.style.display = 'block';
-      } else {
-        backToTopButton.style.display = 'none';
-      }
-    });
-    
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // Carousel Functionality for Testimonials
-    let currentSlide = 0;
+    return pairs.length;
+  }
+
+  /******************************************************************
+   * 2. Initialise carousel once slides exist
+   ******************************************************************/
+  (async () => {
+    const total = await buildSlides();
+    if (!total) {
+      document.getElementById('slide-track').innerHTML =
+        '<p>No before/after images added yet.</p>';
+      return;
+    }
+
+    let current = 0;
     const slides = document.querySelectorAll('.carousel-slide');
-    const totalSlides = slides.length;
-    const nextButton = document.querySelector('.carousel-control.next');
-    const prevButton = document.querySelector('.carousel-control.prev');
-    
-    function updateCarousel() {
-      slides.forEach((slide, index) => {
-        if (index === currentSlide) {
-          slide.classList.add('active');
-        } else {
-          slide.classList.remove('active');
-        }
-      });
+    const nextBtn = document.querySelector('.carousel-control.next');
+    const prevBtn = document.querySelector('.carousel-control.prev');
+
+    function update() {
+      slides.forEach((s,i)=>s.classList.toggle('active', i===current));
     }
-    
-    nextButton.addEventListener('click', () => {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateCarousel();
-    });
-    
-    prevButton.addEventListener('click', () => {
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateCarousel();
-    });
-    
-    // Initialize the carousel
-    updateCarousel();
+    nextBtn.addEventListener('click', ()=>{ current = (current+1)%total; update(); });
+    prevBtn.addEventListener('click', ()=>{ current = (current-1+total)%total; update(); });
+    update();
+  })();
   </script>
 </body>
 </html>
