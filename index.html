@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Ensure proper charset -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSP (ideally send via HTTP header) -->
+  <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      base-uri 'self';
+      object-src 'none';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
+      img-src    'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net;
+      connect-src 'self' https://maps.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
+      frame-src  https://www.googletagmanager.com;
+      font-src   https://fonts.gstatic.com;
+      style-src  'self' https://fonts.googleapis.com;">
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E3XWDWC24Z"></script>
   <script>
@@ -10,10 +27,6 @@
     gtag('config', 'G-E3XWDWC24Z');
   </script>
 
-  <!-- Ensure proper charset -->
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Steve's Professional Handyman Service | Mifflinburg, PA</title>
 
   <!-- Meta Description and Keywords for Local SEO -->
@@ -21,7 +34,7 @@
   <meta name="keywords" content="handyman, Mifflinburg, PA, Milton, Lewisburg, Selinsgrove, home maintenance, electrical services, plumbing, carpentry, painting, handyman service">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=6.0">
+  <link rel="stylesheet" href="styles.css?v=7.0">
   <link rel="icon" href="favicon.png" type="image/png">
 
   <!-- LocalBusiness Schema Markup -->
@@ -35,10 +48,8 @@
     "url": "https://sphs.pro",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Your Business Street Address",
       "addressLocality": "Mifflinburg",
       "addressRegion": "PA",
-      "postalCode": "17059",
       "addressCountry": "US"
     },
     "areaServed": {
@@ -56,30 +67,13 @@
   }
   </script>
 
-  <!-- Google Maps -->
-  <script async
-          defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w&loading=async&callback=initMap">
-  </script>
-
-  <!-- CSP (ideally send via HTTP header) -->
-  <meta http-equiv="Content-Security-Policy" content="
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:;
-      img-src    'self' https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data:;
-      frame-src  *.google.com;
-      connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true https://maps.googleapis.com/maps/api/geocode/ data: blob:;
-      font-src   https://fonts.gstatic.com;
-      style-src  'self' 'unsafe-inline' https://fonts.googleapis.com;
-      worker-src blob:;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-
-  <style>html{scroll-behavior:smooth}</style>
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <!-- Sticky Navigation Header -->
   <header>
-    <nav>
+    <nav aria-label="Primary">
       <ul class="nav-list">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About Us</a></li>
@@ -91,19 +85,27 @@
   </header>
 
   <!-- Main Content -->
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- Home Section -->
     <section id="home" class="section fade">
       <div class="container">
         <h1>Steve's Professional Handyman Service</h1>
-        <p>No job too small, some jobs too big.</p>
+        <p class="tagline"><span>No job too small, some jobs too big.</span></p>
         <p class="subtext">
           Need pictures hung or light bulbs changed? Whether it's electrical work, minor plumbing repairs,
           troubleshooting outdoor landscape lighting, general construction tasks, or nearly any home maintenance
-          and small business project in between—we've proudly met these needs for hundreds of satisfied customers
+          and small business project in between-we've proudly met these needs for hundreds of satisfied customers
           throughout Mifflinburg, PA and surrounding areas.
         </p>
-        <img src="ServiceArea.png" alt="Service Area Map" class="service-area-map">
+        <div class="hero-actions">
+          <a href="#contact" id="service-area-cta" class="button button-primary">Check if you are in our service area</a>
+        </div>
+        <figure class="service-area-figure">
+          <picture>
+            <source type="image/webp" srcset="ServiceArea.webp">
+            <img src="ServiceArea.png" alt="Service Area Map" class="service-area-map" width="874" height="796" decoding="async">
+          </picture>
+        </figure>
       </div>
     </section>
 
@@ -153,9 +155,13 @@
 
         <div class="carousel">
           <div class="carousel-slides" id="slide-track"><!-- slides injected here --></div>
+          <div class="carousel-meta" id="carousel-meta" hidden>
+            <div class="carousel-dots" id="carousel-dots" aria-label="Carousel slides"></div>
+            <div class="carousel-counter" id="carousel-counter" aria-live="polite"></div>
+          </div>
 
-          <button class="carousel-control prev" aria-label="Previous Slide">&#10094;</button>
-          <button class="carousel-control next" aria-label="Next Slide">&#10095;</button>
+          <button class="carousel-control prev" type="button" aria-label="Previous Slide">&#10094;</button>
+          <button class="carousel-control next" type="button" aria-label="Next Slide">&#10095;</button>
         </div>
       </div>
     </section>
@@ -167,28 +173,34 @@
         <p>
           Enter your address below to verify that we service your area. If your address is within our
           service area, you'll receive our phone numbers so you can schedule service or request a free quote.
-          <br><br>
-          Our quotes are determined based on the job’s scope, required materials, and labor. We provide
+        </p>
+        <p>
+          Our quotes are determined based on the job's scope, required materials, and labor. We provide
           a comprehensive, no-obligation estimate so you know exactly what to expect—no hidden fees.
         </p>
 
         <div class="service-check">
-          <input type="text" id="address" placeholder="Enter your address" autocomplete="on">
+          <label for="address" class="visually-hidden">Enter your address</label>
+          <div class="input-with-clear">
+            <input type="text" id="address" placeholder="Enter your address" autocomplete="street-address">
+            <button type="button" id="address-clear" class="input-clear" aria-label="Clear address" title="Clear">&times;</button>
+          </div>
           <div id="suggestions" class="autocomplete-suggestions"></div>
-          <p id="result"></p>
+          <div id="result" role="status" aria-live="polite" hidden></div>
         </div>
       </div>
     </section>
   </main>
 
   <!-- Back-to-Top Button -->
-  <button id="back-to-top" title="Back to Top">&#8679;</button>
+  <button id="back-to-top" type="button" aria-label="Back to top" title="Back to Top">&#8679;</button>
 
   <!-- -------------------- Scripts -------------------- -->
   <script>
     /* ----------- Service-area address helper (unchanged) ----------- */
     let selectedLocation;
     let debounceTimeout;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const polygonCoordinates = [
       [40.89976036643661, -77.19706535339357],
       [41.10529040590998, -76.86833381652833],
@@ -203,64 +215,177 @@
       [40.875232821712515, -77.10067749023439]
     ];
 
-    document.getElementById('address').addEventListener('input', () => {
+    const addressInput = document.getElementById('address');
+    const clearButton = document.getElementById('address-clear');
+    const suggestions = document.getElementById('suggestions');
+    const result = document.getElementById('result');
+    const serviceAreaCta = document.getElementById('service-area-cta');
+    let geocodeAbortController;
+    let geocodeRequestId = 0;
+
+    function clearSuggestions() {
+      suggestions.innerHTML = '';
+      suggestions.style.display = 'none';
+    }
+
+    function clearResult() {
+      result.innerHTML = '';
+      result.hidden = true;
+    }
+
+    function showResult(html) {
+      result.hidden = false;
+      result.innerHTML = html.trim();
+    }
+
+    function focusAddressInput() {
+      if (!addressInput) return;
+      try { addressInput.focus({preventScroll: true}); }
+      catch { addressInput.focus(); }
+
+      try {
+        const end = addressInput.value.length;
+        addressInput.setSelectionRange(end, end);
+      } catch {}
+    }
+
+    function focusAddressAfterScroll() {
+      if (prefersReducedMotion) {
+        focusAddressInput();
+        return;
+      }
+
+      let lastY = window.scrollY;
+      let timer;
+      const onScroll = () => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          const y = window.scrollY;
+          if (Math.abs(y - lastY) < 2) {
+            focusAddressInput();
+            window.removeEventListener('scroll', onScroll);
+            return;
+          }
+          lastY = y;
+          onScroll();
+        }, 120);
+      };
+
+      window.addEventListener('scroll', onScroll, {passive: true});
+      onScroll();
+    }
+
+    if (serviceAreaCta) {
+      serviceAreaCta.addEventListener('click', (event) => {
+        if (!addressInput) return;
+        event.preventDefault();
+
+        const contact = document.getElementById('contact');
+        if (contact && typeof contact.scrollIntoView === 'function') {
+          contact.scrollIntoView({behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start'});
+          if (history && history.pushState) history.pushState(null, '', '#contact');
+          else location.hash = 'contact';
+        } else {
+          location.hash = 'contact';
+        }
+
+        focusAddressInput();
+        focusAddressAfterScroll();
+      });
+    }
+
+    clearButton.addEventListener('click', () => {
+      addressInput.value = '';
+      addressInput.dispatchEvent(new Event('input', {bubbles: true}));
+      addressInput.focus();
+    });
+
+    addressInput.addEventListener('input', () => {
       clearTimeout(debounceTimeout);
-      const v = document.getElementById('address').value.trim();
+      selectedLocation = undefined;
+      clearResult();
+      const v = addressInput.value.trim();
       if (v.length < 1) {
-        document.getElementById('result').innerHTML = "";
-        const sug = document.getElementById('suggestions');
-        sug.innerHTML = ""; sug.style.display = "none"; return;
+        clearSuggestions();
+        if (geocodeAbortController) geocodeAbortController.abort();
+        return;
       }
       debounceTimeout = setTimeout(validateAddress, 500);
     });
 
     function validateAddress() {
-      const address = document.getElementById('address').value.trim();
-      const suggestions = document.getElementById('suggestions');
-      if (address.length > 3) {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w`)
-          .then(r => r.json())
-          .then(data => {
-            suggestions.innerHTML = '';
-            if (data.results.length) {
-              suggestions.style.display = "block";
-              data.results.forEach(res => {
-                const {formatted_address, geometry} = res;
-                const div = document.createElement('div');
-                div.className='autocomplete-suggestion'; div.textContent=formatted_address;
-                div.onclick=()=>selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng);
-                suggestions.appendChild(div);
-              });
-              document.getElementById('result').textContent='';
-            } else { suggestions.style.display="none";
-              document.getElementById('result').textContent='No valid address found or please enter a more complete address.';}
-          })
-          .catch(()=>{ suggestions.style.display="none";
-                       document.getElementById('result').textContent='Error validating address. Please try again.';});
-      } else { document.getElementById('result').textContent='Please enter a more complete address.';
-               suggestions.style.display="none";}
+      const address = addressInput.value.trim();
+      if (address.length <= 3) {
+        clearSuggestions();
+        return;
+      }
+
+      geocodeRequestId += 1;
+      const requestId = geocodeRequestId;
+
+      if (geocodeAbortController) geocodeAbortController.abort();
+      geocodeAbortController = new AbortController();
+
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w`, {signal: geocodeAbortController.signal})
+        .then(r => r.json())
+        .then(data => {
+          if (requestId !== geocodeRequestId) return;
+          suggestions.innerHTML = '';
+          if (data.results && data.results.length) {
+            suggestions.style.display = 'block';
+            data.results.forEach(res => {
+              const {formatted_address, geometry} = res;
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className='autocomplete-suggestion'; button.textContent=formatted_address;
+              button.addEventListener('click', () => selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng));
+              suggestions.appendChild(button);
+            });
+          } else {
+            clearSuggestions();
+            showResult('<div class="result-note">No matching address found. Try adding city/state.</div>');
+          }
+        })
+        .catch((err) => {
+          if (err && err.name === 'AbortError') return;
+          clearSuggestions();
+          showResult('<div class="result-error">Error validating address. Please try again.</div>');
+        });
     }
 
     function selectSuggestion(addr, lat, lon){
-      const sug=document.getElementById('suggestions');
-      document.getElementById('address').value=addr; sug.innerHTML=''; sug.style.display='none';
-      selectedLocation={lat:+lat,lng:+lon}; document.getElementById('result').innerHTML=''; checkServiceArea();
+      addressInput.value = addr;
+      clearSuggestions();
+      selectedLocation = {lat:+lat,lng:+lon};
+      clearResult();
+      checkServiceArea();
     }
 
     function checkServiceArea(){
-      const res=document.getElementById('result'); res.classList.remove("result-success","result-error");
-      if(!selectedLocation){res.innerText="Please select a valid address from the suggestions."; return;}
+      if (!selectedLocation) {
+        showResult('<div class="result-note">Please select a valid address from the suggestions.</div>');
+        return;
+      }
       const point=[selectedLocation.lat,selectedLocation.lng];
       const inside=isPointInPolygon(point,polygonCoordinates);
-      if(inside){
-        res.classList.add("result-success"); res.innerHTML=
-          `Yes, we service your area!<br><br>
-           <a href="tel:570-217-7290" class="call-button">Call Steve</a>
-           <div class="phone-number">(570-217-7290)</div><br>
-           <a href="tel:570-452-6429" class="call-button">Call Clayton</a>
-           <div class="phone-number">(570-452-6429)</div>`;
-      } else { res.classList.add("result-error");
-               res.innerHTML='Sorry, you are outside our service area.';}
+      if (inside) {
+        showResult(`
+          <div class="result-success">Yes, we service your area!</div>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card__name">Steve</div>
+              <div class="contact-card__phone">(570) 217-7290</div>
+              <a href="tel:570-217-7290" class="button button-primary">Call Steve</a>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card__name">Clayton</div>
+              <div class="contact-card__phone">(570) 452-6429</div>
+              <a href="tel:570-452-6429" class="button button-primary">Call Clayton</a>
+            </div>
+          </div>`);
+      } else {
+        showResult('<div class="result-error">Sorry, you are outside our service area.</div>');
+      }
     }
     function isPointInPolygon(pt, vs){
       let x=pt[0],y=pt[1],inside=false;
@@ -270,20 +395,21 @@
         if(intersect) inside=!inside;
       } return inside;
     }
-    function initMap(){/* optional */}
-
-
     /* ------------- Fade-in on scroll ------------- */
     const faders=document.querySelectorAll('.fade');
-    const appearOnScroll=new IntersectionObserver((entries,obs)=>{
-      entries.forEach(e=>{if(!e.isIntersecting)return; e.target.classList.add('appear'); obs.unobserve(e.target);});
-    },{threshold:0.1,rootMargin:"0px 0px -50px 0px"});
-    faders.forEach(f=>appearOnScroll.observe(f));
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      faders.forEach(f=>f.classList.add('appear'));
+    } else {
+      const appearOnScroll=new IntersectionObserver((entries,obs)=>{
+        entries.forEach(e=>{if(!e.isIntersecting)return; e.target.classList.add('appear'); obs.unobserve(e.target);});
+      },{threshold:0.1,rootMargin:"0px 0px -50px 0px"});
+      faders.forEach(f=>appearOnScroll.observe(f));
+    }
 
     /* ------------- Back-to-Top button ------------- */
     const back=document.getElementById('back-to-top');
     window.addEventListener('scroll',()=>{back.style.display=window.pageYOffset>300?'block':'none';});
-    back.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    back.addEventListener('click',()=>window.scrollTo({top:0,behavior:prefersReducedMotion?'auto':'smooth'}));
   </script>
 
   <!-- ------------- AUTO-BUILD TESTIMONIAL CAROUSEL ------------- -->
@@ -305,20 +431,29 @@
       const before = `before${idx}.jpg`;
       const after  = `after${idx}.jpg`;
       if (!(await imgExists(before)) || !(await imgExists(after))) break;
-      pairs.push({before,after}); idx++;
+      const beforeWebp = before.replace(/\.jpg$/i, '.webp');
+      const afterWebp = after.replace(/\.jpg$/i, '.webp');
+      const hasWebp = (await imgExists(beforeWebp)) && (await imgExists(afterWebp));
+      pairs.push({before, after, beforeWebp, afterWebp, hasWebp}); idx++;
     }
 
-    pairs.forEach(({before,after}, i) => {
+    pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide' + (i===0 ? ' active' : '');
       slide.innerHTML = `
         <div class="before-after-container">
           <div class="before-after-card">
-            <img src="${before}" alt="Before ${i+1}" class="before-after-img">
+            <picture class="before-after-media">
+              ${hasWebp ? `<source type="image/webp" srcset="${beforeWebp}">` : ''}
+              <img src="${before}" alt="Before ${i+1}" class="before-after-img" loading="lazy" decoding="async">
+            </picture>
             <h3>Before</h3>
           </div>
           <div class="before-after-card">
-            <img src="${after}" alt="After ${i+1}" class="before-after-img">
+            <picture class="before-after-media">
+              ${hasWebp ? `<source type="image/webp" srcset="${afterWebp}">` : ''}
+              <img src="${after}" alt="After ${i+1}" class="before-after-img" loading="lazy" decoding="async">
+            </picture>
             <h3>After</h3>
           </div>
         </div>`;
@@ -342,9 +477,38 @@
     const slides = document.querySelectorAll('.carousel-slide');
     const nextBtn = document.querySelector('.carousel-control.next');
     const prevBtn = document.querySelector('.carousel-control.prev');
+    const meta = document.getElementById('carousel-meta');
+    const dotsContainer = document.getElementById('carousel-dots');
+    const counter = document.getElementById('carousel-counter');
+    const dots = [];
+
+    if (meta) meta.hidden = total <= 1;
+    if (dotsContainer && total > 1) {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => { current = i; update(); });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      }
+    }
 
     function update() {
-      slides.forEach((s,i)=>s.classList.toggle('active', i===current));
+      slides.forEach((s,i) => {
+        const isActive = i === current;
+        s.classList.toggle('active', isActive);
+        s.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+      dots.forEach((d,i) => {
+        const isActive = i === current;
+        d.classList.toggle('active', isActive);
+        if (isActive) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+      });
+      if (counter && total > 1) counter.textContent = `${current + 1} / ${total}`;
     }
     nextBtn.addEventListener('click', ()=>{ current = (current+1)%total; update(); });
     prevBtn.addEventListener('click', ()=>{ current = (current-1+total)%total; update(); });

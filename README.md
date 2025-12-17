@@ -29,9 +29,21 @@ python3 -m http.server
 
 Then visit [http://localhost:8000](http://localhost:8000) in your browser. Note that the address lookup feature requires an internet connection and a valid Google Maps API key (already present in the file) and may not work if requests are blocked locally.
 
+## Images (WebP)
+
+This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `before#.jpg` / `after#.jpg` files, generate matching `.webp` files by running:
+
+```bash
+python generate-webp.py
+```
+
+## Security / API Key
+
+The Google Maps API key is embedded client-side in `index.html`. In Google Cloud Console, restrict the key by HTTP referrer (for example `https://sphs.pro/*` and `http://localhost:8000/*`), enable only the APIs you use, set quotas, and rotate the key if it is ever exposed.
+
 ## Customization
 
-To adapt this site for another business, update the contact details, service area polygon, images, and JSON‑LD markup in `index.html`. The stylesheet can be modified in `styles.css` to change colors or layout.
+To adapt this site for another business, update the contact details, service area polygon, images, and JSON-LD markup in `index.html`. The stylesheet can be modified in `styles.css` to change colors or layout.
 
 ## Deployment
 
