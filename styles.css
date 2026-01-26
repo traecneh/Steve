@@ -21,6 +21,7 @@ html {
   --radius: 12px;
   --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.06);
   --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --portfolio-video-max-width: 760px;
 }
 
 /* Accessibility */
@@ -477,12 +478,15 @@ p {
   display: grid;
   gap: 12px;
   text-align: center;
+  justify-items: center;
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 12px;
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  max-width: var(--portfolio-video-max-width);
+  margin: 0 auto;
 }
 
 .portfolio-video-card:hover {
@@ -497,6 +501,7 @@ p {
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) - 4px);
   overflow: hidden;
+  width: 100%;
 }
 
 .portfolio-video video {
