@@ -16,6 +16,7 @@ This repository contains the source code for the website [sphs.pro](https://sphs
 - `styles.css` – styling for the site, including responsive rules and animations.
 - `ServiceArea.png` – map image showing the service region.
 - `portfolio/before*.jpg` and `portfolio/after*.jpg` – photos used in the testimonial carousel.
+- `portfolio/video*.mp4` (or `.webm`) – project videos shown before photos in the carousel.
 - `favicon.png` – small icon used in browser tabs.
 - `CNAME` – custom domain configuration for GitHub Pages.
 
@@ -36,6 +37,10 @@ This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `portf
 ```bash
 python generate-webp.py
 ```
+
+## Videos
+
+Add videos to `portfolio/` using consecutive names like `video1.mp4`, `video2.mp4`, etc. (WebM is also supported via `video1.webm`). Videos appear first in the carousel, followed by the before/after image pairs.
 
 ## Security / API Key
 

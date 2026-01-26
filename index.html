@@ -13,6 +13,7 @@
       object-src 'none';
       script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
       img-src    'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net;
+      media-src  'self';
       connect-src 'self' https://maps.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
       frame-src  https://www.googletagmanager.com;
       font-src   https://fonts.gstatic.com;
@@ -415,32 +416,68 @@
   <!-- ------------- AUTO-BUILD TESTIMONIAL CAROUSEL ------------- -->
   <script>
   /******************************************************************
-   * 1. Build slides from numbered before#/after#.jpg files
+   * 1. Build slides from numbered video# + before#/after# files
    ******************************************************************/
   async function buildSlides() {
     const track = document.getElementById('slide-track');
-    let idx = 1;
     const pairs = [];
+    const videos = [];
+    let slideIndex = 0;
 
-    async function imgExists(url) {
+    async function assetExists(url) {
       try { const r = await fetch(url, {method:'HEAD'}); return r.ok; }
       catch { return false; }
     }
 
+    let videoIdx = 1;
+    while (true) {
+      const mp4 = `portfolio/video${videoIdx}.mp4`;
+      const webm = `portfolio/video${videoIdx}.webm`;
+      const hasMp4 = await assetExists(mp4);
+      const hasWebm = await assetExists(webm);
+      if (!hasMp4 && !hasWebm) break;
+      videos.push({mp4: hasMp4 ? mp4 : null, webm: hasWebm ? webm : null});
+      videoIdx++;
+    }
+
+    let idx = 1;
     while (true) {
       const before = `portfolio/before${idx}.jpg`;
       const after  = `portfolio/after${idx}.jpg`;
-      if (!(await imgExists(before)) || !(await imgExists(after))) break;
+      if (!(await assetExists(before)) || !(await assetExists(after))) break;
       const beforeWebp = before.replace(/\.jpg$/i, '.webp');
       const afterWebp = after.replace(/\.jpg$/i, '.webp');
-      const hasWebp = (await imgExists(beforeWebp)) && (await imgExists(afterWebp));
+      const hasWebp = (await assetExists(beforeWebp)) && (await assetExists(afterWebp));
       pairs.push({before, after, beforeWebp, afterWebp, hasWebp}); idx++;
     }
 
-    pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
+    function appendSlide(html) {
       const slide = document.createElement('div');
-      slide.className = 'carousel-slide' + (i===0 ? ' active' : '');
-      slide.innerHTML = `
+      slide.className = 'carousel-slide' + (slideIndex===0 ? ' active' : '');
+      slide.innerHTML = html;
+      track.appendChild(slide);
+      slideIndex += 1;
+    }
+
+    videos.forEach((video, i) => {
+      const sources = [
+        video.webm ? `<source type="video/webm" src="${video.webm}">` : '',
+        video.mp4 ? `<source type="video/mp4" src="${video.mp4}">` : ''
+      ].filter(Boolean).join('');
+      appendSlide(`
+        <div class="portfolio-video-card">
+          <div class="portfolio-video">
+            <video controls preload="metadata" playsinline aria-label="Project video ${i + 1}">
+              ${sources}
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <h3>Project Video ${i + 1}</h3>
+        </div>`);
+    });
+
+    pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
+      appendSlide(`
         <div class="before-after-container">
           <div class="before-after-card">
             <picture class="before-after-media">
@@ -456,10 +493,10 @@
             </picture>
             <h3>After</h3>
           </div>
-        </div>`;
-      track.appendChild(slide);
+        </div>`);
     });
-    return pairs.length;
+
+    return slideIndex;
   }
 
   /******************************************************************
@@ -469,7 +506,7 @@
     const total = await buildSlides();
     if (!total) {
       document.getElementById('slide-track').innerHTML =
-        '<p>No before/after images added yet.</p>';
+        '<p>No portfolio media added yet.</p>';
       return;
     }
 
@@ -501,6 +538,9 @@
         const isActive = i === current;
         s.classList.toggle('active', isActive);
         s.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        if (!isActive) {
+          s.querySelectorAll('video').forEach((vid) => vid.pause());
+        }
       });
       dots.forEach((d,i) => {
         const isActive = i === current;

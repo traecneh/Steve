@@ -472,6 +472,47 @@ p {
   color: var(--primary-color);
 }
 
+/* Portfolio Video */
+.portfolio-video-card {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.portfolio-video-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+.portfolio-video {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+}
+
+.portfolio-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.portfolio-video-card h3 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
 /* Buttons */
 .button {
   display: inline-flex;
@@ -776,6 +817,7 @@ input[type="text"]:focus {
   .nav-list li a,
   .card,
   .before-after-card,
+  .portfolio-video-card,
   .input-clear,
   .button,
   .carousel-dot,
