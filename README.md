@@ -15,7 +15,7 @@ This repository contains the source code for the website [sphs.pro](https://sphs
 - `index.html` – the main page with all site content and inline JavaScript.
 - `styles.css` – styling for the site, including responsive rules and animations.
 - `ServiceArea.png` – map image showing the service region.
-- `before*.jpg` and `after*.jpg` – photos used in the testimonial carousel.
+- `portfolio/before*.jpg` and `portfolio/after*.jpg` – photos used in the testimonial carousel.
 - `favicon.png` – small icon used in browser tabs.
 - `CNAME` – custom domain configuration for GitHub Pages.
 
@@ -31,7 +31,7 @@ Then visit [http://localhost:8000](http://localhost:8000) in your browser. Note 
 
 ## Images (WebP)
 
-This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `before#.jpg` / `after#.jpg` files, generate matching `.webp` files by running:
+This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `portfolio/before#.jpg` / `portfolio/after#.jpg` files, generate matching `.webp` files by running:
 
 ```bash
 python generate-webp.py

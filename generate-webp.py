@@ -27,15 +27,17 @@ def main() -> int:
   root = Path(__file__).resolve().parent
 
   sources: list[Path] = []
+  portfolio_dir = root / "portfolio"
+  image_root = portfolio_dir if portfolio_dir.exists() else root
   for pattern in ("before*.jpg", "after*.jpg"):
-    sources.extend(sorted(root.glob(pattern)))
+    sources.extend(sorted(image_root.glob(pattern)))
 
   service_area = root / "ServiceArea.png"
   if service_area.exists():
     sources.append(service_area)
 
   if not sources:
-    print("No matching images found (before*.jpg/after*.jpg/ServiceArea.png).")
+    print("No matching images found (portfolio/before*.jpg/portfolio/after*.jpg or before*.jpg/after*.jpg, plus ServiceArea.png).")
     return 1
 
   converted = 0

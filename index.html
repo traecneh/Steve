@@ -428,8 +428,8 @@
     }
 
     while (true) {
-      const before = `before${idx}.jpg`;
-      const after  = `after${idx}.jpg`;
+      const before = `portfolio/before${idx}.jpg`;
+      const after  = `portfolio/after${idx}.jpg`;
       if (!(await imgExists(before)) || !(await imgExists(after))) break;
       const beforeWebp = before.replace(/\.jpg$/i, '.webp');
       const afterWebp = after.replace(/\.jpg$/i, '.webp');
