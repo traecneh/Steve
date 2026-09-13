@@ -428,6 +428,11 @@ p {
 }
 
 /* Before & After Images */
+.portfolio-project-caption {
+  margin-bottom: 0;
+  text-align: center;
+}
+
 .before-after-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Always two columns */
@@ -450,6 +455,10 @@ p {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.before-after-container--landscape .before-after-media {
+  aspect-ratio: 4 / 3;
 }
 
 .before-after-card {
