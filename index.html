@@ -44,7 +44,7 @@
   <meta property="og:locale" content="en_US">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=7.1">
+  <link rel="stylesheet" href="styles.css?v=7.2">
   <link rel="icon" href="favicon.png" type="image/png">
 
   <!-- LocalBusiness Schema Markup -->
@@ -485,20 +485,28 @@
         </div>`);
     });
 
+    const projectDetails = {
+      8: {title: 'Basement beam, support posts and wiring', view: 'View 1 of 2'},
+      9: {title: 'Basement beam, support posts and wiring', view: 'View 2 of 2'}
+    };
+
     pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
+      const project = projectDetails[i + 1];
+      const description = project ? `: ${project.title}, ${project.view.toLowerCase()}` : ` ${i + 1}`;
       appendSlide(`
-        <div class="before-after-container">
+        ${project ? `<p class="portfolio-project-caption"><strong>${project.title}</strong> &middot; ${project.view}</p>` : ''}
+        <div class="before-after-container${project ? ' before-after-container--landscape' : ''}">
           <div class="before-after-card">
             <picture class="before-after-media">
               ${hasWebp ? `<source type="image/webp" srcset="${beforeWebp}">` : ''}
-              <img src="${before}" alt="Before ${i+1}" class="before-after-img" loading="lazy" decoding="async">
+              <img src="${before}" alt="Before${description}" class="before-after-img" loading="lazy" decoding="async">
             </picture>
             <h3>Before</h3>
           </div>
           <div class="before-after-card">
             <picture class="before-after-media">
               ${hasWebp ? `<source type="image/webp" srcset="${afterWebp}">` : ''}
-              <img src="${after}" alt="After ${i+1}" class="before-after-img" loading="lazy" decoding="async">
+              <img src="${after}" alt="After${description}" class="before-after-img" loading="lazy" decoding="async">
             </picture>
             <h3>After</h3>
           </div>

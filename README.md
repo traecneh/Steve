@@ -38,6 +38,14 @@ This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `portf
 python generate-webp.py
 ```
 
+## Basement project photos
+
+`before8` / `after8` and `before9` / `after9` show two views of the same basement
+project. Their captions and descriptive image text are configured in
+`projectDetails` in `index.html`. The original JPGs have matching WebP versions,
+and these landscape pairs display without cropping. The caption identifies the
+beam and support-post work and wiring organization as one project.
+
 ## Videos
 
 Add videos to `portfolio/` using consecutive names like `video1.mp4`, `video2.mp4`, etc. (WebM is also supported via `video1.webm`). Videos appear first in the carousel, followed by the before/after image pairs.
