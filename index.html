@@ -486,16 +486,17 @@
     });
 
     const projectDetails = {
-      8: {title: 'Basement beam, support posts and wiring', view: 'View 1 of 2'},
-      9: {title: 'Basement beam, support posts and wiring', view: 'View 2 of 2'}
+      8: {title: 'Basement beam, support posts and wiring', view: 'View 1 of 2', landscape: true},
+      9: {title: 'Basement beam, support posts and wiring', view: 'View 2 of 2', landscape: true},
+      10: {title: 'Water heater piping update'}
     };
 
     pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
       const project = projectDetails[i + 1];
-      const description = project ? `: ${project.title}, ${project.view.toLowerCase()}` : ` ${i + 1}`;
+      const description = project ? `: ${project.title}${project.view ? `, ${project.view.toLowerCase()}` : ''}` : ` ${i + 1}`;
       appendSlide(`
-        ${project ? `<p class="portfolio-project-caption"><strong>${project.title}</strong> &middot; ${project.view}</p>` : ''}
-        <div class="before-after-container${project ? ' before-after-container--landscape' : ''}">
+        ${project ? `<p class="portfolio-project-caption"><strong>${project.title}</strong>${project.view ? ` &middot; ${project.view}` : ''}</p>` : ''}
+        <div class="before-after-container${project && project.landscape ? ' before-after-container--landscape' : ''}">
           <div class="before-after-card">
             <picture class="before-after-media">
               ${hasWebp ? `<source type="image/webp" srcset="${beforeWebp}">` : ''}

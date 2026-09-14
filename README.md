@@ -46,6 +46,13 @@ project. Their captions and descriptive image text are configured in
 and these landscape pairs display without cropping. The caption identifies the
 beam and support-post work and wiring organization as one project.
 
+## Water heater project photos
+
+`before10` / `after10` show the water heater piping before and after the update.
+The project caption is configured in `projectDetails` in `index.html`. The
+original JPGs have matching WebP versions; both photos retain their full framing
+despite their different orientations.
+
 ## Videos
 
 Add videos to `portfolio/` using consecutive names like `video1.mp4`, `video2.mp4`, etc. (WebM is also supported via `video1.webm`). Videos appear first in the carousel, followed by the before/after image pairs.
