@@ -491,7 +491,11 @@
       10: {title: 'Water heater piping update'}
     };
 
+    // Keep asset numbers stable when omitting retired projects from the gallery.
+    const excludedPhotoPairs = new Set([7]); // Sink project, previously slide 9.
+
     pairs.forEach(({before, after, beforeWebp, afterWebp, hasWebp}, i) => {
+      if (excludedPhotoPairs.has(i + 1)) return;
       const project = projectDetails[i + 1];
       const description = project ? `: ${project.title}${project.view ? `, ${project.view.toLowerCase()}` : ''}` : ` ${i + 1}`;
       appendSlide(`
