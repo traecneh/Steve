@@ -38,6 +38,10 @@ This site serves `.webp` images (with JPG/PNG fallbacks). When adding new `portf
 python generate-webp.py
 ```
 
+The sink project (`before7` / `after7`, previously portfolio slide 9) is omitted
+from the gallery through `excludedPhotoPairs` in `index.html`. Its source files
+are retained, and subsequent photo pairs keep their existing asset numbers.
+
 ## Basement project photos
 
 `before8` / `after8` and `before9` / `after9` show two views of the same basement
