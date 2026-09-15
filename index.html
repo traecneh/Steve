@@ -44,7 +44,7 @@
   <meta property="og:locale" content="en_US">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=7.2">
+  <link rel="stylesheet" href="styles.css?v=8.2">
   <link rel="icon" href="favicon.png" type="image/png">
 
   <!-- LocalBusiness Schema Markup -->
@@ -163,15 +163,23 @@
       <div class="container">
         <h2>Portfolio</h2>
 
-        <div class="carousel">
+        <h3 id="photo-gallery-heading" class="portfolio-subheading">Before &amp; after</h3>
+        <p class="portfolio-zoom-hint">Hover to zoom &middot; Move your mouse to explore</p>
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-labelledby="photo-gallery-heading" tabindex="0">
           <div class="carousel-slides" id="slide-track"><!-- slides injected here --></div>
-          <div class="carousel-meta" id="carousel-meta" hidden>
-            <div class="carousel-dots" id="carousel-dots" aria-label="Carousel slides"></div>
-            <div class="carousel-counter" id="carousel-counter" aria-live="polite"></div>
+          <div class="carousel-navigation" id="carousel-navigation" hidden>
+            <button class="carousel-control prev" type="button" aria-label="Previous photo pair" aria-controls="slide-track"><span aria-hidden="true">&#10094;</span> Previous</button>
+            <div class="carousel-meta">
+              <div class="carousel-counter" id="carousel-counter" role="status" aria-live="polite" aria-atomic="true"></div>
+              <div class="carousel-dots" id="carousel-dots" aria-label="Choose a photo pair"></div>
+            </div>
+            <button class="carousel-control next" type="button" aria-label="Next photo pair" aria-controls="slide-track">Next <span aria-hidden="true">&#10095;</span></button>
           </div>
+        </div>
 
-          <button class="carousel-control prev" type="button" aria-label="Previous Slide">&#10094;</button>
-          <button class="carousel-control next" type="button" aria-label="Next Slide">&#10095;</button>
+        <div class="portfolio-video-section" id="project-videos" hidden>
+          <h3 class="portfolio-subheading">Project videos</h3>
+          <div class="portfolio-video-grid" id="video-grid"><!-- videos injected here --></div>
         </div>
       </div>
     </section>
@@ -422,32 +430,20 @@
     back.addEventListener('click',()=>window.scrollTo({top:0,behavior:prefersReducedMotion?'auto':'smooth'}));
   </script>
 
-  <!-- ------------- AUTO-BUILD TESTIMONIAL CAROUSEL ------------- -->
+  <!-- ------------- PHOTO GALLERY AND PROJECT VIDEOS ------------- -->
   <script>
+  async function assetExists(url) {
+    try { const r = await fetch(url, {method:'HEAD'}); return r.ok; }
+    catch { return false; }
+  }
+
   /******************************************************************
-   * 1. Build slides from numbered video# + before#/after# files
+   * 1. Build photo slides, preserving each image's natural proportions
    ******************************************************************/
   async function buildSlides() {
     const track = document.getElementById('slide-track');
     const pairs = [];
-    const videos = [];
     let slideIndex = 0;
-
-    async function assetExists(url) {
-      try { const r = await fetch(url, {method:'HEAD'}); return r.ok; }
-      catch { return false; }
-    }
-
-    let videoIdx = 1;
-    while (true) {
-      const mp4 = `portfolio/video${videoIdx}.mp4`;
-      const webm = `portfolio/video${videoIdx}.webm`;
-      const hasMp4 = await assetExists(mp4);
-      const hasWebm = await assetExists(webm);
-      if (!hasMp4 && !hasWebm) break;
-      videos.push({mp4: hasMp4 ? mp4 : null, webm: hasWebm ? webm : null});
-      videoIdx++;
-    }
 
     let idx = 1;
     while (true) {
@@ -463,32 +459,37 @@
     function appendSlide(html) {
       const slide = document.createElement('div');
       slide.className = 'carousel-slide' + (slideIndex===0 ? ' active' : '');
+      slide.hidden = slideIndex !== 0;
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-roledescription', 'slide');
       slide.innerHTML = html;
       track.appendChild(slide);
       slideIndex += 1;
     }
 
-    videos.forEach((video, i) => {
-      const sources = [
-        video.webm ? `<source type="video/webm" src="${video.webm}">` : '',
-        video.mp4 ? `<source type="video/mp4" src="${video.mp4}">` : ''
-      ].filter(Boolean).join('');
-      appendSlide(`
-        <div class="portfolio-video-card">
-          <div class="portfolio-video">
-            <video controls preload="metadata" playsinline aria-label="Project video ${i + 1}">
-              ${sources}
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <h3>Project Video ${i + 1}</h3>
-        </div>`);
-    });
-
     const projectDetails = {
-      8: {title: 'Basement beam, support posts and wiring', view: 'View 1 of 2', landscape: true},
-      9: {title: 'Basement beam, support posts and wiring', view: 'View 2 of 2', landscape: true},
+      1: {title: 'Outdoor walkway railing installation'},
+      2: {title: 'Electrical panel wiring organization'},
+      3: {title: 'Deck and railing refinishing', view: 'View 1 of 2'},
+      4: {title: 'Deck and railing refinishing', view: 'View 2 of 2'},
+      5: {title: 'Entry steps, landing and railing installation'},
+      6: {title: 'Store checkout counter and cabinetry update'},
+      8: {title: 'Basement beam, support posts and wiring', view: 'View 1 of 2'},
+      9: {title: 'Basement beam, support posts and wiring', view: 'View 2 of 2'},
       10: {title: 'Water heater piping update'}
+    };
+
+    // Reserve the correct image space before lazy-loaded photos arrive.
+    const photoDimensions = {
+      1: [[900, 1200], [900, 1200]],
+      2: [[900, 1200], [900, 1200]],
+      3: [[900, 1200], [900, 1200]],
+      4: [[900, 1200], [900, 1200]],
+      5: [[720, 960], [720, 960]],
+      6: [[2160, 3840], [2160, 3840]],
+      8: [[1744, 1308], [1744, 1308]],
+      9: [[1744, 1308], [1744, 1308]],
+      10: [[1280, 960], [960, 1280]]
     };
 
     // Keep asset numbers stable when omitting retired projects from the gallery.
@@ -498,23 +499,26 @@
       if (excludedPhotoPairs.has(i + 1)) return;
       const project = projectDetails[i + 1];
       const description = project ? `: ${project.title}${project.view ? `, ${project.view.toLowerCase()}` : ''}` : ` ${i + 1}`;
+      const dimensions = photoDimensions[i + 1];
+      const beforeSize = dimensions ? `width="${dimensions[0][0]}" height="${dimensions[0][1]}"` : '';
+      const afterSize = dimensions ? `width="${dimensions[1][0]}" height="${dimensions[1][1]}"` : '';
       appendSlide(`
         ${project ? `<p class="portfolio-project-caption"><strong>${project.title}</strong>${project.view ? ` &middot; ${project.view}` : ''}</p>` : ''}
-        <div class="before-after-container${project && project.landscape ? ' before-after-container--landscape' : ''}">
-          <div class="before-after-card">
-            <picture class="before-after-media">
+        <div class="before-after-container">
+          <figure class="before-after-card">
+            <figcaption>Before</figcaption>
+            <picture class="before-after-media photo-zoom">
               ${hasWebp ? `<source type="image/webp" srcset="${beforeWebp}">` : ''}
-              <img src="${before}" alt="Before${description}" class="before-after-img" loading="lazy" decoding="async">
+              <img src="${before}" alt="Before${description}" class="before-after-img" ${beforeSize} loading="lazy" decoding="async">
             </picture>
-            <h3>Before</h3>
-          </div>
-          <div class="before-after-card">
-            <picture class="before-after-media">
+          </figure>
+          <figure class="before-after-card">
+            <figcaption>After</figcaption>
+            <picture class="before-after-media photo-zoom">
               ${hasWebp ? `<source type="image/webp" srcset="${afterWebp}">` : ''}
-              <img src="${after}" alt="After${description}" class="before-after-img" loading="lazy" decoding="async">
+              <img src="${after}" alt="After${description}" class="before-after-img" ${afterSize} loading="lazy" decoding="async">
             </picture>
-            <h3>After</h3>
-          </div>
+          </figure>
         </div>`);
     });
 
@@ -522,47 +526,126 @@
   }
 
   /******************************************************************
-   * 2. Initialise carousel once slides exist
+   * 2. Show videos independently, using their native aspect ratios
+   ******************************************************************/
+  async function buildVideos() {
+    const section = document.getElementById('project-videos');
+    const grid = document.getElementById('video-grid');
+    const videoTitles = {
+      1: 'Exposed ceiling spray painting',
+      2: 'Deck pressure washing'
+    };
+    const videoDimensions = {1: [576, 1024], 2: [480, 848]};
+    let idx = 1;
+    while (true) {
+      const mp4 = `portfolio/video${idx}.mp4`;
+      const webm = `portfolio/video${idx}.webm`;
+      const [hasMp4, hasWebm] = await Promise.all([assetExists(mp4), assetExists(webm)]);
+      if (!hasMp4 && !hasWebm) break;
+      const title = videoTitles[idx] || `Project video ${idx}`;
+      const dimensions = videoDimensions[idx];
+      const size = dimensions ? `width="${dimensions[0]}" height="${dimensions[1]}"` : '';
+      const card = document.createElement('figure');
+      card.className = 'portfolio-video-card';
+      card.innerHTML = `
+        <video controls preload="metadata" playsinline ${size} aria-label="${title}">
+          ${hasWebm ? `<source type="video/webm" src="${webm}">` : ''}
+          ${hasMp4 ? `<source type="video/mp4" src="${mp4}">` : ''}
+          Your browser does not support the video tag.
+        </video>
+        <figcaption>${title}</figcaption>`;
+      const video = card.querySelector('video');
+      video.addEventListener('play', () => {
+        grid.querySelectorAll('video').forEach(other => { if (other !== video) other.pause(); });
+      });
+      grid.appendChild(card);
+      section.hidden = false;
+      idx++;
+    }
+  }
+
+  buildVideos();
+
+  /******************************************************************
+   * Hover over a photo to magnify the area under the pointer
+   ******************************************************************/
+  function resetPhotoZoom() {
+    document.querySelectorAll('.photo-zoom.is-zoomed').forEach(media => {
+      media.classList.remove('is-zoomed');
+    });
+  }
+
+  function initializePhotoZoom() {
+    const hoverAvailable = window.matchMedia('(hover: hover) and (pointer: fine)');
+    document.querySelectorAll('.photo-zoom').forEach(media => {
+      const img = media.querySelector('img');
+      function magnify(event) {
+        if (!hoverAvailable.matches || event.pointerType !== 'mouse' || !img.naturalWidth) return;
+        const bounds = media.getBoundingClientRect();
+        const x = Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100));
+        const y = Math.max(0, Math.min(100, (event.clientY - bounds.top) / bounds.height * 100));
+        media.style.setProperty('--photo-zoom-x', `${x}%`);
+        media.style.setProperty('--photo-zoom-y', `${y}%`);
+        media.style.setProperty('--photo-zoom-scale', Math.min(2.5, Math.max(1, img.naturalWidth / img.clientWidth)));
+        media.classList.add('is-zoomed');
+      }
+      media.addEventListener('pointerenter', magnify);
+      media.addEventListener('pointermove', magnify);
+      media.addEventListener('pointerleave', () => media.classList.remove('is-zoomed'));
+      media.addEventListener('pointercancel', () => media.classList.remove('is-zoomed'));
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') resetPhotoZoom();
+    });
+    window.addEventListener('blur', resetPhotoZoom);
+    hoverAvailable.addEventListener('change', resetPhotoZoom);
+  }
+
+  /******************************************************************
+   * 3. Only the current photo pair participates in the page layout
    ******************************************************************/
   (async () => {
     const total = await buildSlides();
     if (!total) {
       document.getElementById('slide-track').innerHTML =
-        '<p>No portfolio media added yet.</p>';
+        '<p>No portfolio photos added yet.</p>';
       return;
     }
+    initializePhotoZoom();
 
     let current = 0;
     const slides = document.querySelectorAll('.carousel-slide');
     const nextBtn = document.querySelector('.carousel-control.next');
     const prevBtn = document.querySelector('.carousel-control.prev');
-    const meta = document.getElementById('carousel-meta');
+    const carousel = document.querySelector('.carousel');
+    const navigation = document.getElementById('carousel-navigation');
     const dotsContainer = document.getElementById('carousel-dots');
     const counter = document.getElementById('carousel-counter');
     const dots = [];
 
-    if (meta) meta.hidden = total <= 1;
+    navigation.hidden = total <= 1;
     if (dotsContainer && total > 1) {
       dotsContainer.innerHTML = '';
       for (let i = 0; i < total; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-        dot.addEventListener('click', () => { current = i; update(); });
+        dot.setAttribute('aria-label', `Go to photo pair ${i + 1}`);
+        dot.setAttribute('aria-controls', 'slide-track');
+        dot.addEventListener('click', () => showSlide(i));
         dotsContainer.appendChild(dot);
         dots.push(dot);
       }
     }
 
     function update() {
+      resetPhotoZoom();
       slides.forEach((s,i) => {
         const isActive = i === current;
+        s.hidden = !isActive;
         s.classList.toggle('active', isActive);
         s.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        if (!isActive) {
-          s.querySelectorAll('video').forEach((vid) => vid.pause());
-        }
+        s.setAttribute('aria-label', `Photo pair ${i + 1} of ${total}`);
       });
       dots.forEach((d,i) => {
         const isActive = i === current;
@@ -570,10 +653,32 @@
         if (isActive) d.setAttribute('aria-current', 'true');
         else d.removeAttribute('aria-current');
       });
-      if (counter && total > 1) counter.textContent = `${current + 1} / ${total}`;
+      if (counter) counter.textContent = `${current + 1} of ${total}`;
     }
-    nextBtn.addEventListener('click', ()=>{ current = (current+1)%total; update(); });
-    prevBtn.addEventListener('click', ()=>{ current = (current-1+total)%total; update(); });
+
+    function showSlide(index) {
+      if (index === current) return;
+      const headerHeight = document.querySelector('header').getBoundingClientRect().height;
+      const shouldScroll = carousel.getBoundingClientRect().top < headerHeight + 16;
+      current = (index + total) % total;
+      update();
+      // A shorter pair should not leave the reader stranded below its photos.
+      if (shouldScroll) {
+        document.getElementById('photo-gallery-heading').scrollIntoView({
+          block: 'start', behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        });
+      }
+    }
+
+    nextBtn.addEventListener('click', () => showSlide(current + 1));
+    prevBtn.addEventListener('click', () => showSlide(current - 1));
+    carousel.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showSlide(current + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
     update();
   })();
   </script>
