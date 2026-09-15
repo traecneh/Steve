@@ -11,10 +11,10 @@
       default-src 'self';
       base-uri 'self';
       object-src 'none';
-      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://maps.googleapis.com https://maps.gstatic.com;
       img-src    'self' data: https://www.google-analytics.com https://stats.g.doubleclick.net;
       media-src  'self';
-      connect-src 'self' https://maps.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
+      connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://www.google-analytics.com https://*.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com;
       frame-src  https://www.googletagmanager.com;
       font-src   https://fonts.gstatic.com;
       style-src  'self' https://fonts.googleapis.com;">
@@ -44,7 +44,7 @@
   <meta property="og:locale" content="en_US">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=8.2">
+  <link rel="stylesheet" href="styles.css?v=8.3">
   <link rel="icon" href="favicon.png" type="image/png">
 
   <!-- LocalBusiness Schema Markup -->
@@ -215,7 +215,7 @@
 
   <!-- -------------------- Scripts -------------------- -->
   <script>
-    /* ----------- Service-area address helper (unchanged) ----------- */
+    /* ----------- Service-area address helper ----------- */
     let selectedLocation;
     let debounceTimeout;
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -238,8 +238,46 @@
     const suggestions = document.getElementById('suggestions');
     const result = document.getElementById('result');
     const serviceAreaCta = document.getElementById('service-area-cta');
-    let geocodeAbortController;
+    // This browser key must have website and API restrictions in Google Cloud.
+    // Never use an unrestricted or server-side key here. See README.md.
+    const googleMapsBrowserKey = 'AIzaSyD5HdQoRjquhvubPbvSwMRNB9vf3z-EtMM';
+    let geocoderPromise;
     let geocodeRequestId = 0;
+
+    function getGeocoder() {
+      if (geocoderPromise) return geocoderPromise;
+      geocoderPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        const timeout = window.setTimeout(() => {
+          reject(new Error('Address lookup took too long to load.'));
+        }, 15000);
+        const fail = () => {
+          window.clearTimeout(timeout);
+          reject(new Error('Address lookup could not load.'));
+        };
+        window.gm_authFailure = fail;
+        window.initAddressGeocoder = async () => {
+          try {
+            const {Geocoder} = await google.maps.importLibrary('geocoding');
+            window.clearTimeout(timeout);
+            resolve(new Geocoder());
+          } catch {
+            fail();
+          }
+        };
+        const params = new URLSearchParams({
+          key: googleMapsBrowserKey,
+          loading: 'async',
+          callback: 'initAddressGeocoder',
+          v: 'quarterly'
+        });
+        script.src = `https://maps.googleapis.com/maps/api/js?${params}`;
+        script.async = true;
+        script.onerror = fail;
+        document.head.appendChild(script);
+      });
+      return geocoderPromise;
+    }
 
     function clearSuggestions() {
       suggestions.innerHTML = '';
@@ -320,58 +358,64 @@
 
     addressInput.addEventListener('input', () => {
       clearTimeout(debounceTimeout);
+      // Invalidate pending results immediately, including when the field is cleared.
+      geocodeRequestId += 1;
       selectedLocation = undefined;
       clearResult();
-      const v = addressInput.value.trim();
-      if (v.length < 1) {
-        clearSuggestions();
-        if (geocodeAbortController) geocodeAbortController.abort();
-        return;
-      }
+      clearSuggestions();
+      if (addressInput.value.trim().length <= 3) return;
       debounceTimeout = setTimeout(validateAddress, 500);
     });
 
-    function validateAddress() {
+    async function validateAddress() {
       const address = addressInput.value.trim();
-      if (address.length <= 3) {
+      if (address.length <= 3) return;
+      const requestId = ++geocodeRequestId;
+      let requestTimeout;
+      try {
+        const geocoder = await getGeocoder();
+        if (requestId !== geocodeRequestId) return;
+        const data = await Promise.race([
+          geocoder.geocode({address, fulfillOnZeroResults: true}),
+          new Promise((resolve, reject) => {
+            requestTimeout = window.setTimeout(() => reject(new Error('Address lookup timed out.')), 15000);
+          })
+        ]);
+        if (requestId !== geocodeRequestId) return;
         clearSuggestions();
-        return;
+        if (data.results && data.results.length) {
+          suggestions.style.display = 'block';
+          data.results.forEach(({formatted_address, geometry}) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'autocomplete-suggestion';
+            button.textContent = formatted_address;
+            button.addEventListener('click', () => selectSuggestion(formatted_address, geometry.location.lat(), geometry.location.lng()));
+            suggestions.appendChild(button);
+          });
+          const attribution = document.createElement('div');
+          attribution.className = 'geocoding-attribution';
+          const logo = document.createElement('img');
+          logo.src = 'google-maps-attribution.svg';
+          logo.alt = 'Google Maps';
+          logo.height = 16;
+          attribution.appendChild(logo);
+          suggestions.appendChild(attribution);
+        } else {
+          showResult('<div class="result-note">No matching address found. Try adding city/state.</div>');
+        }
+      } catch {
+        if (requestId !== geocodeRequestId) return;
+        clearSuggestions();
+        showResult('<div class="result-error">Address lookup is temporarily unavailable. Please refresh and try again.</div>');
+      } finally {
+        window.clearTimeout(requestTimeout);
       }
-
-      geocodeRequestId += 1;
-      const requestId = geocodeRequestId;
-
-      if (geocodeAbortController) geocodeAbortController.abort();
-      geocodeAbortController = new AbortController();
-
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDiyf_BGBaK3r70h6rIeyKij7xgHz2eb1w`, {signal: geocodeAbortController.signal})
-        .then(r => r.json())
-        .then(data => {
-          if (requestId !== geocodeRequestId) return;
-          suggestions.innerHTML = '';
-          if (data.results && data.results.length) {
-            suggestions.style.display = 'block';
-            data.results.forEach(res => {
-              const {formatted_address, geometry} = res;
-              const button = document.createElement('button');
-              button.type = 'button';
-              button.className='autocomplete-suggestion'; button.textContent=formatted_address;
-              button.addEventListener('click', () => selectSuggestion(formatted_address, geometry.location.lat, geometry.location.lng));
-              suggestions.appendChild(button);
-            });
-          } else {
-            clearSuggestions();
-            showResult('<div class="result-note">No matching address found. Try adding city/state.</div>');
-          }
-        })
-        .catch((err) => {
-          if (err && err.name === 'AbortError') return;
-          clearSuggestions();
-          showResult('<div class="result-error">Error validating address. Please try again.</div>');
-        });
     }
 
     function selectSuggestion(addr, lat, lon){
+      clearTimeout(debounceTimeout);
+      geocodeRequestId += 1;
       addressInput.value = addr;
       clearSuggestions();
       selectedLocation = {lat:+lat,lng:+lon};

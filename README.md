@@ -29,7 +29,12 @@ No build step is required. Serve the directory with a simple HTTP server so the 
 python3 -m http.server
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000) in your browser. Note that the address lookup feature requires an internet connection and a valid Google Maps API key (already present in the file) and may not work if requests are blocked locally.
+Then visit [http://localhost:8000](http://localhost:8000) in your browser. The
+production address-lookup key is restricted to the live website, so local address
+lookups require a separate development key restricted to your local origin.
+Temporarily substitute that key in `googleMapsBrowserKey` in `index.html` and
+restore the production value before committing. Other site features work locally
+without Google Maps access.
 
 ## Images (WebP)
 
@@ -84,7 +89,44 @@ labels, with a numbered label as the fallback for new videos.
 
 ## Security / API Key
 
-The Google Maps API key is embedded client-side in `index.html`. In Google Cloud Console, restrict the key by HTTP referrer (for example `https://sphs.pro/*` and `http://localhost:8000/*`), enable only the APIs you use, set quotas, and rotate the key if it is ever exposed.
+The address helper uses the **Maps JavaScript API Geocoder**, loaded only after
+the visitor types an address. It does not call the Geocoding REST endpoint from
+the browser. Both **Maps JavaScript API** and **Geocoding API** must be enabled in
+the same Google Cloud project.
+
+`googleMapsBrowserKey` in `index.html` is intentionally visible to visitors.
+Protect it in Google Cloud with both:
+
+- **Application restrictions: Websites**, allowing `https://sphs.pro/*` only.
+- **API restrictions:** Maps JavaScript API and Geocoding API only.
+
+Use a separate restricted key for development. Do not add broad wildcard hosts,
+leave either restriction unset, or embed a server key in this static site.
+Environment variables and GitHub secrets cannot hide a key delivered to browsers.
+
+When replacing a compromised key, review its metrics and billing, create and
+restrict its replacement, deploy and verify the new lookup, then retire the old
+key. Removing a key from the latest source does not invalidate copies in Git
+history. Check for other applications using the old key before deleting it.
+Review usage and quotas in Cloud Console; billing alerts alone do not cap usage.
+See [Google's API security guidance](https://developers.google.com/maps/api-security-best-practices).
+
+`google-maps-attribution.svg` is the unmodified official Google Maps logo from
+the [Google Maps attribution assets](https://developers.google.com/maps/documentation/geocoding/policies#logo-attribution).
+It is displayed with address suggestions; no address results are stored locally.
+
+## Address lookup checks
+
+Run the focused checks with Node.js (no dependencies to install):
+
+```bash
+node --test tests/address-lookup.test.cjs
+```
+
+These cover SDK loading, address selection, service-area checks, stale responses,
+errors, and timeouts. Also verify real geocoding in a browser from an allowed
+origin and confirm that an unlisted origin is rejected after key restrictions
+have propagated.
 
 ## Customization
 
