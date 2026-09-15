@@ -744,6 +744,20 @@ input[type="text"]:focus {
   outline-offset: -2px;
 }
 
+.geocoding-attribution {
+  position: sticky;
+  bottom: 0;
+  padding: 10px 10px 5px;
+  background: var(--surface);
+  text-align: right;
+}
+
+.geocoding-attribution img {
+  display: inline-block;
+  height: 16px;
+  width: auto;
+}
+
 /* Result Message Styles */
 .result-success {
   background: rgba(16, 185, 129, 0.12);
